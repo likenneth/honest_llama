@@ -50,6 +50,10 @@ If successful, you can find your GPT-judge and GPT-info model names with the com
 
 (2) Get into `validation` folder, then, e.g., `CUDA_VISIBLE_DEVICES=0 python validate_2fold.py llama_7B --num_heads 48 --alpha 20 --device 0 --num_fold 2 --use_center_of_mass --judge_name <your GPT-judge name> --info_name <your GPT-info name>` to test inference-time intervention on LLaMA-7B. Read the code to learn about additional options. 
 
+## Additional datasets
+
+The modified nq_open and trivia_qa datasets used for transfer evaluation are available [here]([url](https://huggingface.co/datasets/OamPatel/iti_nq_open_val)) and [here]([url](https://huggingface.co/datasets/OamPatel/iti_trivia_qa_val)) respectively. 
+
 ## How to Cite
 
 ```
