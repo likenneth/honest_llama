@@ -52,7 +52,7 @@ If successful, you can find your GPT-judge and GPT-info model names with the com
 
 ## Additional datasets
 
-The modified nq_open and trivia_qa datasets used for transfer evaluation are available [here]([url](https://huggingface.co/datasets/OamPatel/iti_nq_open_val)) and [here]([url](https://huggingface.co/datasets/OamPatel/iti_trivia_qa_val)) respectively. 
+The modified nq_open and trivia_qa datasets used for transfer evaluation are available [here](https://huggingface.co/datasets/OamPatel/iti_nq_open_val) and [here](https://huggingface.co/datasets/OamPatel/iti_trivia_qa_val) respectively. 
 
 ## How to Cite
 
