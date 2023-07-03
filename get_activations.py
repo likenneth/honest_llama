@@ -1,6 +1,6 @@
 import os
 import torch
-from datasets import load_dataset, load_from_disk
+from datasets import load_dataset
 from tqdm import tqdm
 import numpy as np
 import pickle

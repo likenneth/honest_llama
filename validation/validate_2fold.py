@@ -7,6 +7,7 @@ from tqdm import tqdm
 import pandas as pd
 import numpy as np
 import argparse
+from datasets import load_dataset
 
 import sys
 sys.path.append('../')
@@ -32,7 +33,6 @@ def main():
     parser.add_argument('--use_random_dir', action='store_true', help='use random direction', default=False)
     parser.add_argument('--device', type=int, default=0, help='device')
     parser.add_argument('--seed', type=int, default=42, help='seed')
-    parser.add_argument('--use_prefix', action='store_true', help='use few shot in distribution prefix', default=False)
     parser.add_argument('--judge_name', type=str, required=False)
     parser.add_argument('--info_name', type=str, required=False)
     args = parser.parse_args()
@@ -44,8 +44,10 @@ def main():
 
     df = pd.read_csv('../TruthfulQA/TruthfulQA.csv')
 
-    # shuffle df
-    df = df.sample(frac=1, random_state=args.seed).reset_index(drop=True)
+    # order csv by huggingface order, the order used to save activations
+    dataset = load_dataset("truthful_qa", "multiple_choice")['validation']
+    golden_q_order = list(dataset["question"])
+    df = df.sort_values(by='Question', key=lambda x: x.map({k: i for i, k in enumerate(golden_q_order)}))
     
     # get two folds using numpy
     fold_idxs = np.array_split(np.arange(len(df)), args.num_fold)
@@ -98,7 +100,7 @@ def main():
             com_directions = get_com_directions(num_layers, num_heads, train_set_idxs, val_set_idxs, separated_head_wise_activations, separated_labels)
         else:
             com_directions = None
-        top_heads, probes = get_top_heads(train_set_idxs, val_set_idxs, test_idxs, separated_head_wise_activations, separated_labels, num_layers, num_heads, args.seed, args.num_heads, args.use_random_dir)
+        top_heads, probes = get_top_heads(train_set_idxs, val_set_idxs, separated_head_wise_activations, separated_labels, num_layers, num_heads, args.seed, args.num_heads, args.use_random_dir)
 
         print("Heads intervened: ", sorted(top_heads))
     
@@ -121,11 +123,6 @@ def main():
             filename += '_com'
         if args.use_random_dir:
             filename += '_random'
-
-        if args.use_prefix: 
-            preset = 'few_shot'
-        else:
-            preset='qa'
         
         curr_fold_results = alt_tqa_evaluate(
             {args.model_name: model}, 
@@ -134,7 +131,6 @@ def main():
             f'results_dump/answer_dump/{filename}.csv', 
             f'results_dump/summary_dump/{filename}.csv', 
             device=args.device, 
-            preset=preset, 
             interventions=interventions, 
             intervention_fn=lt_modulated_vector_add, 
             judge_name=args.judge_name, 
