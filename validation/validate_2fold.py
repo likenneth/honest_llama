@@ -16,13 +16,17 @@ import llama
 
 HF_NAMES = {
     'llama_7B': 'decapoda-research/llama-7b-hf', 
+    'honest_llama_7B': 'results_dump/llama_7B_seed_42_top_48_heads_alpha_15', 
     'alpaca_7B': 'circulus/alpaca-7b', 
+    'honest_alpaca_7B': 'results_dump/alpaca_7B_seed_42_top_48_heads_alpha_15', 
     'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
+    'honest_vicuna_7B': 'results_dump/vicuna_7B_seed_42_top_48_heads_alpha_15', 
 }
 
 def main(): 
     parser = argparse.ArgumentParser()
     parser.add_argument("model_name", type=str, default='llama_7B', choices=HF_NAMES.keys(), help='model name')
+    parser.add_argument('--use_honest', action='store_true', help='use local editted version of the model', default=False)
     parser.add_argument('--dataset_name', type=str, default='tqa_mc2', help='feature bank for training probes')
     parser.add_argument('--activations_dataset', type=str, default='tqa_gen_end_q', help='feature bank for calculating std along direction')
     parser.add_argument('--num_heads', type=int, default=48, help='K, number of top heads to intervene on')
@@ -53,13 +57,12 @@ def main():
     fold_idxs = np.array_split(np.arange(len(df)), args.num_fold)
 
     # create model
-    model_name = HF_NAMES[args.model_name]
-
+    model_name = HF_NAMES["honest_" + args.model_name if args.use_honest else args.model_name]
     tokenizer = llama.LLaMATokenizer.from_pretrained(model_name)
     model = llama.LLaMAForCausalLM.from_pretrained(model_name, low_cpu_mem_usage = True, torch_dtype=torch.float16)
     r = model.to(args.device)
     device = args.device
-        
+    
     # define number of layers and heads
     num_layers = model.config.num_hidden_layers
     num_heads = model.config.num_attention_heads
@@ -111,9 +114,9 @@ def main():
             for head, direction, proj_val_std in interventions[layer_name]:
                 direction_to_add = torch.tensor(direction).to(args.device)
                 if start_edit_location == 'lt': 
-                    head_output[:, -1, head, :] = head_output[:, -1, head, :] + args.alpha * proj_val_std * direction_to_add
+                    head_output[:, -1, head, :] += args.alpha * proj_val_std * direction_to_add
                 else: 
-                    head_output[:, start_edit_location:, head, :] = head_output[:, start_edit_location:, head, :] + args.alpha * proj_val_std * direction_to_add
+                    head_output[:, start_edit_location:, head, :] += args.alpha * proj_val_std * direction_to_add
             head_output = rearrange(head_output, 'b s h d -> b s (h d)')
             return head_output
 
@@ -123,7 +126,9 @@ def main():
             filename += '_com'
         if args.use_random_dir:
             filename += '_random'
-        
+        if args.use_honest:
+            filename = 'honest_' + filename
+                    
         curr_fold_results = alt_tqa_evaluate(
             {args.model_name: model}, 
             ['judge', 'info', 'mc'], 

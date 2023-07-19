@@ -48,7 +48,7 @@ If successful, you can find your GPT-judge and GPT-info model names with the com
 
 (1) Get activations by running `bash get_activations.sh`. Layer-wise and head-wise activations are stored in the `features` folder. Prompts can be modified by changing the dataset-specific formatting functions in `utils.py`. 
 
-(2) Get into `validation` folder, then, e.g., `CUDA_VISIBLE_DEVICES=0 python validate_2fold.py llama_7B --num_heads 48 --alpha 20 --device 0 --num_fold 2 --use_center_of_mass --judge_name <your GPT-judge name> --info_name <your GPT-info name>` to test inference-time intervention on LLaMA-7B. Read the code to learn about additional options. 
+(2) Get into `validation` folder, then, e.g., `CUDA_VISIBLE_DEVICES=0 python validate_2fold.py llama_7B --num_heads 48 --alpha 15 --device 0 --num_fold 2 --use_center_of_mass --judge_name <your GPT-judge name> --info_name <your GPT-info name>` to test inference-time intervention on LLaMA-7B. Read the code to learn about additional options. 
 
 ## Additional datasets
 
