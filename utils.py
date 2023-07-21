@@ -29,6 +29,7 @@ ENGINE_MAP = {
     'llama_7B': 'decapoda-research/llama-7b-hf', 
     'alpaca_7B': 'circulus/alpaca-7b', 
     'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
+    'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
 }
 
 from truthfulqa.utilities import (
@@ -524,7 +525,7 @@ def alt_tqa_evaluate(models, metric_names, input_path, output_path, summary_path
                 print(err)
 
         # llama
-        if mdl in ['llama_7B', 'alpaca_7B', 'vicuna_7B']: 
+        if mdl in ['llama_7B', 'alpaca_7B', 'vicuna_7B', 'llama2_chat_7B']: 
 
             assert models[mdl] is not None, 'must provide llama model'
             llama_model = models[mdl]

@@ -24,9 +24,9 @@ def main():
     args = parser.parse_args()
     HF_NAMES = {
         'llama_7B': 'decapoda-research/llama-7b-hf', 
-        'llama_13B': 'decapoda-research/llama-13b-hf', 
         'alpaca_7B': 'circulus/alpaca-7b', 
         'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
+        'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
     }
 
     MODEL = HF_NAMES[args.model_name]

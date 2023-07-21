@@ -168,6 +168,7 @@ class LLaMAAttention(nn.Module):
         self,
         hidden_size: int,
         num_heads: int,
+        oproj_bias: bool = False,
     ):
         super().__init__()
         self.hidden_size = hidden_size
@@ -202,7 +203,7 @@ class LLaMAAttention(nn.Module):
         self.o_proj = nn.Linear(
             num_heads * self.head_dim,
             hidden_size,
-            bias=False,
+            bias=oproj_bias,
         )
         self.rotary_emb = RotaryEmbedding(self.head_dim)
 
@@ -287,6 +288,7 @@ class LLaMADecoderLayer(nn.Module):
         self.self_attn = LLaMAAttention(
             hidden_size=self.hidden_size,
             num_heads=config.num_attention_heads,
+            oproj_bias=config.oproj_bias, 
         )
         self.mlp = LLaMAMLP(
             hidden_size=self.hidden_size,

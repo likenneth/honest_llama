@@ -93,6 +93,7 @@ class LLaMAConfig(PretrainedConfig):
         eos_token_id=1,
         tie_word_embeddings=False,
         output_head_hidden_states=False,
+        oproj_bias=False, 
         **kwargs,
     ):
         self.vocab_size = vocab_size
@@ -105,6 +106,7 @@ class LLaMAConfig(PretrainedConfig):
         self.rms_norm_eps = rms_norm_eps
         self.use_cache = use_cache
         self.output_head_hidden_states = output_head_hidden_states
+        self.oproj_bias = oproj_bias
         super().__init__(
             pad_token_id=pad_token_id,
             bos_token_id=bos_token_id,

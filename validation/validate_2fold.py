@@ -21,6 +21,8 @@ HF_NAMES = {
     'honest_alpaca_7B': 'results_dump/alpaca_7B_seed_42_top_48_heads_alpha_15', 
     'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
     'honest_vicuna_7B': 'results_dump/vicuna_7B_seed_42_top_48_heads_alpha_15', 
+    'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
+    'honest_llama2_chat_7B': 'results_dump/llama2_chat_7B_seed_42_top_48_heads_alpha_15', 
 }
 
 def main(): 
