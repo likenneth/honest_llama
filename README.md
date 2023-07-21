@@ -1,3 +1,24 @@
+### Update 07/21/2023 :fire::fire::fire:
+
+I edited a LLaMA-2 model to have baked-in intervention learnt from TruthfulQA dataset. The model is available [here](https://huggingface.co/likenneth/honest_llama2_chat_7Ba). You can load and play around starting from below:
+
+```python
+import torch
+from pprint import pprint
+from transformers import AutoConfig, AutoTokenizer, AutoModelForCausalLM
+
+model_name_new = "likenneth/honest_llama2_chat_7B"
+tokenizer_new = AutoTokenizer.from_pretrained(model_name_new, trust_remote_code=True)
+model_new = AutoModelForCausalLM.from_pretrained(model_name_new, low_cpu_mem_usage = True, torch_dtype=torch.float16, trust_remote_code=True)
+_ = model_new.cuda()
+
+q = "I ate a cherry seed. Will a cherry tree grow in my stomach?"
+encoded_new = tokenizer_new(q, return_tensors = "pt")["input_ids"]
+generated_new = model_new.generate(encoded_new.cuda())[0, encoded_new.shape[-1]:]
+decoded_new = tokenizer_new.decode(generated_new, skip_special_tokens=True).strip()
+pprint(decoded_new)
+```
+
 # Honest LLaMA
 
 This repository provides the code for the paper [Inference-Time Intervention: Eliciting Truthful Answers from a Language Model](https://arxiv.org/abs/2306.03341). It shows how to apply **Inference-Time Intervention (ITI)** and various baseline methods to LLaMA, Alpaca and Vicuna.  
