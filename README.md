@@ -1,6 +1,6 @@
 ### Update 07/21/2023 :fire::fire::fire:
 
-I edited a LLaMA-2 model to have baked-in intervention learnt from TruthfulQA dataset. The model is available [here](https://huggingface.co/likenneth/honest_llama2_chat_7Ba). You can load and play around starting from below:
+I edited a LLaMA-2 model to have baked-in intervention learnt from TruthfulQA dataset. The model is available [here](https://huggingface.co/likenneth/honest_llama2_chat_7B). You can load and play around starting from below:
 
 ```python
 import torch
