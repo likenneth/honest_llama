@@ -39,7 +39,7 @@ Some of the code is from [user-friendly llama](https://github.com/ypeleg/llama),
 ## Installation
 In this the root folder of this repo, run the following commands to set things up.
 ```
-conda env create -f environment.yml
+conda env create -f environment.yaml
 conda activate iti
 pip install git+https://github.com/davidbau/baukit
 pip install git+https://github.com/google-research/bleurt
