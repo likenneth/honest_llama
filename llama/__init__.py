@@ -16,13 +16,14 @@ from typing import TYPE_CHECKING
 from transformers.utils import (
     OptionalDependencyNotAvailable,
     _LazyModule,
-    is_torch_available,
     is_sentencepiece_available,
+    is_tokenizers_available,
+    is_torch_available,
 )
 
 
 _import_structure = {
-    "configuration_llama": ["LLAMA_PRETRAINED_CONFIG_ARCHIVE_MAP", "LLaMAConfig"],
+    "configuration_llama": ["LLAMA_PRETRAINED_CONFIG_ARCHIVE_MAP", "LlamaConfig"],
 }
 
 try:
@@ -31,7 +32,15 @@ try:
 except OptionalDependencyNotAvailable:
     pass
 else:
-    _import_structure["tokenization_llama"] = ["LLaMATokenizer"]
+    _import_structure["tokenization_llama"] = ["LlamaTokenizer"]
+
+try:
+    if not is_tokenizers_available():
+        raise OptionalDependencyNotAvailable()
+except OptionalDependencyNotAvailable:
+    pass
+else:
+    _import_structure["tokenization_llama_fast"] = ["LlamaTokenizerFast"]
 
 try:
     if not is_torch_available():
@@ -40,14 +49,15 @@ except OptionalDependencyNotAvailable:
     pass
 else:
     _import_structure["modeling_llama"] = [
-        "LLaMAForCausalLM",
-        "LLaMAModel",
-        "LLaMAPreTrainedModel",
+        "LlamaForCausalLM",
+        "LlamaModel",
+        "LlamaPreTrainedModel",
+        "LlamaForSequenceClassification",
     ]
 
 
 if TYPE_CHECKING:
-    from .configuration_llama import LLAMA_PRETRAINED_CONFIG_ARCHIVE_MAP, LLaMAConfig
+    from .configuration_llama import LLAMA_PRETRAINED_CONFIG_ARCHIVE_MAP, LlamaConfig
 
     try:
         if not is_sentencepiece_available():
@@ -55,7 +65,15 @@ if TYPE_CHECKING:
     except OptionalDependencyNotAvailable:
         pass
     else:
-        from .tokenization_llama import LLaMATokenizer
+        from .tokenization_llama import LlamaTokenizer
+
+    try:
+        if not is_tokenizers_available():
+            raise OptionalDependencyNotAvailable()
+    except OptionalDependencyNotAvailable:
+        pass
+    else:
+        from .tokenization_llama_fast import LlamaTokenizerFast
 
     try:
         if not is_torch_available():
@@ -63,11 +81,7 @@ if TYPE_CHECKING:
     except OptionalDependencyNotAvailable:
         pass
     else:
-        from .modeling_llama import (
-            LLaMAForCausalLM,
-            LLaMAModel,
-            LLaMAPreTrainedModel,
-        )
+        from .modeling_llama import LlamaForCausalLM, LlamaForSequenceClassification, LlamaModel, LlamaPreTrainedModel
 
 
 else:

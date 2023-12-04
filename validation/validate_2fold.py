@@ -15,7 +15,7 @@ from utils import alt_tqa_evaluate, flattened_idx_to_layer_head, layer_head_to_f
 import llama
 
 HF_NAMES = {
-    'llama_7B': 'decapoda-research/llama-7b-hf', 
+    'llama_7B': 'baffo32/decapoda-research-llama-7B-hf', 
     'honest_llama_7B': 'results_dump/llama_7B_seed_42_top_48_heads_alpha_15', 
     'alpaca_7B': 'circulus/alpaca-7b', 
     'honest_alpaca_7B': 'results_dump/alpaca_7B_seed_42_top_48_heads_alpha_15', 
@@ -23,11 +23,14 @@ HF_NAMES = {
     'honest_vicuna_7B': 'results_dump/vicuna_7B_seed_42_top_48_heads_alpha_15', 
     'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
     'honest_llama2_chat_7B': 'results_dump/llama2_chat_7B_seed_42_top_48_heads_alpha_15', 
+    'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf', 
+    'honest_llama2_chat_70B': 'results_dump/llama2_chat_70B_seed_42_top_48_heads_alpha_15', 
 }
 
 def main(): 
     parser = argparse.ArgumentParser()
     parser.add_argument("model_name", type=str, default='llama_7B', choices=HF_NAMES.keys(), help='model name')
+    parser.add_argument("--model_dir", type=str, default=None, help='local directory with model data')
     parser.add_argument('--use_honest', action='store_true', help='use local editted version of the model', default=False)
     parser.add_argument('--dataset_name', type=str, default='tqa_mc2', help='feature bank for training probes')
     parser.add_argument('--activations_dataset', type=str, default='tqa_gen_end_q', help='feature bank for calculating std along direction')
@@ -60,10 +63,9 @@ def main():
 
     # create model
     model_name = HF_NAMES["honest_" + args.model_name if args.use_honest else args.model_name]
-    tokenizer = llama.LLaMATokenizer.from_pretrained(model_name)
-    model = llama.LLaMAForCausalLM.from_pretrained(model_name, low_cpu_mem_usage = True, torch_dtype=torch.float16)
-    r = model.to(args.device)
-    device = args.device
+    MODEL = model_name if not args.model_dir else args.model_dir
+    tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
+    model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto")
     
     # define number of layers and heads
     num_layers = model.config.num_hidden_layers
@@ -114,7 +116,7 @@ def main():
         def lt_modulated_vector_add(head_output, layer_name, start_edit_location='lt'): 
             head_output = rearrange(head_output, 'b s (h d) -> b s h d', h=num_heads)
             for head, direction, proj_val_std in interventions[layer_name]:
-                direction_to_add = torch.tensor(direction).to(args.device)
+                direction_to_add = torch.tensor(direction).to(head_output.device.index)
                 if start_edit_location == 'lt': 
                     head_output[:, -1, head, :] += args.alpha * proj_val_std * direction_to_add
                 else: 

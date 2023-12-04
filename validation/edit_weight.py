@@ -18,15 +18,17 @@ from utils import alt_tqa_evaluate, flattened_idx_to_layer_head, layer_head_to_f
 import llama
 
 HF_NAMES = {
-    'llama_7B': 'decapoda-research/llama-7b-hf', 
+    'llama_7B': 'baffo32/decapoda-research-llama-7B-hf', 
     'alpaca_7B': 'circulus/alpaca-7b', 
     'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
-    'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
+    'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf',
+    'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf',
 }
 
 def main(): 
     parser = argparse.ArgumentParser()
     parser.add_argument("model_name", type=str, default='llama_7B', choices=HF_NAMES.keys(), help='model name')
+    parser.add_argument("--model_dir", type=str, default=None, help='local directory with model data')
     parser.add_argument('--dataset_name', type=str, default='tqa_mc2', help='feature bank for training probes')
     parser.add_argument('--activations_dataset', type=str, default='tqa_gen_end_q', help='feature bank for calculating std along direction')
     parser.add_argument('--num_heads', type=int, default=48, help='K, number of top heads to intervene on')
@@ -51,12 +53,10 @@ def main():
     df = df.sort_values(by='Question', key=lambda x: x.map({k: i for i, k in enumerate(golden_q_order)}))
 
     # create model
-    model_name = HF_NAMES[args.model_name]
+    MODEL = HF_NAMES[args.model_name] if not args.model_dir else args.model_dir
 
-    tokenizer = llama.LLaMATokenizer.from_pretrained(model_name)
-    model = llama.LLaMAForCausalLM.from_pretrained(model_name, low_cpu_mem_usage = True, torch_dtype=torch.float16)
-    r = model.to(args.device)
-    device = args.device
+    tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
+    model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
 
     # define number of layers and heads
     num_layers = model.config.num_hidden_layers
@@ -97,6 +97,7 @@ def main():
         displacement = np.zeros((int(num_heads), int(model.config.hidden_size / num_heads)))
         for head_no, head_vec, std in list_int_vec:
             displacement[head_no] = args.alpha * std * head_vec
+        device = model.model.layers[layer_no].self_attn.o_proj.weight.device.index
         displacement = torch.tensor(rearrange(displacement, 'h d -> (h d)'), device=device)
         bias_tobe = F.linear(displacement.to(torch.float16), model.model.layers[layer_no].self_attn.o_proj.weight).to(device)
         model.model.layers[layer_no].self_attn.o_proj.bias = torch.nn.parameter.Parameter(bias_tobe)
@@ -106,7 +107,7 @@ def main():
       shutil.rmtree(save_folder)
     os.makedirs(save_folder)
     model.config.oproj_bias = True
-    model.save_pretrained(save_folder)
+    model.save_pretrained(save_folder, safe_serialization=False, max_shard_size="10GB")
     tokenizer.save_pretrained(save_folder)
 
 if __name__ == "__main__":

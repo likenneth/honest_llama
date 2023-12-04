@@ -9,6 +9,15 @@ import llama
 import pickle
 import argparse
 
+HF_NAMES = {
+    'llama_7B': 'baffo32/decapoda-research-llama-7B-hf',
+    'honest_llama_7B': 'validation/results_dump/llama_7B_seed_42_top_48_heads_alpha_15',
+    'alpaca_7B': 'circulus/alpaca-7b', 
+    'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
+    'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
+    'llama2_chat_13B': 'meta-llama/Llama-2-13b-chat-hf', 
+    'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf', 
+}
 
 def main(): 
     """
@@ -21,21 +30,14 @@ def main():
     parser.add_argument('model_name', type=str, default='llama_7B')
     parser.add_argument('dataset_name', type=str, default='tqa_mc2')
     parser.add_argument('--device', type=int, default=0)
+    parser.add_argument("--model_dir", type=str, default=None, help='local directory with model data')
     args = parser.parse_args()
-    HF_NAMES = {
-        'llama_7B': 'decapoda-research/llama-7b-hf', 
-        'alpaca_7B': 'circulus/alpaca-7b', 
-        'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
-        'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
-    }
 
-    MODEL = HF_NAMES[args.model_name]
+    MODEL = HF_NAMES[args.model_name] if not args.model_dir else args.model_dir
 
-    tokenizer = llama.LLaMATokenizer.from_pretrained(MODEL)
-    model = llama.LLaMAForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
-    device = args.device
+    tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
+    model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
     device = "cuda"
-    r = model.to(device)
 
     if args.dataset_name == "tqa_mc2": 
         dataset = load_dataset("truthful_qa", "multiple_choice")['validation']

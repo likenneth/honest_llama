@@ -26,10 +26,11 @@ import openai
 from truthfulqa.configs import BEST_COL, ANSWER_COL, INCORRECT_COL
 
 ENGINE_MAP = {
-    'llama_7B': 'decapoda-research/llama-7b-hf', 
+    'llama_7B': 'baffo32/decapoda-research-llama-7B-hf', 
     'alpaca_7B': 'circulus/alpaca-7b', 
     'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
     'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
+    'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf', 
 }
 
 from truthfulqa.utilities import (
@@ -148,8 +149,6 @@ def tokenized_tqa_gen(dataset, tokenizer):
 
 
 def get_llama_activations_bau(model, prompt, device): 
-
-    model.eval()
 
     HEADS = [f"model.layers.{i}.self_attn.head_out" for i in range(model.config.num_hidden_layers)]
     MLPS = [f"model.layers.{i}.mlp" for i in range(model.config.num_hidden_layers)]
@@ -525,11 +524,11 @@ def alt_tqa_evaluate(models, metric_names, input_path, output_path, summary_path
                 print(err)
 
         # llama
-        if mdl in ['llama_7B', 'alpaca_7B', 'vicuna_7B', 'llama2_chat_7B']: 
+        if mdl in ['llama_7B', 'alpaca_7B', 'vicuna_7B', 'llama2_chat_7B', 'llama2_chat_70B']: 
 
             assert models[mdl] is not None, 'must provide llama model'
             llama_model = models[mdl]
-            llama_tokenizer = llama.LLaMATokenizer.from_pretrained(ENGINE_MAP[mdl])
+            llama_tokenizer = llama.LlamaTokenizer.from_pretrained(ENGINE_MAP[mdl])
             
             if 'judge' in metric_names or 'info' in metric_names:
                 questions = tqa_run_answers(questions, ENGINE_MAP[mdl], mdl, preset, model=llama_model, tokenizer=llama_tokenizer,
