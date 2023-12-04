@@ -206,8 +206,8 @@ dependencies:
     - array-record==0.2.0
     - astunparse==1.6.3
     - async-timeout==4.0.2
-    - baukit==0.0.1
-    - bleurt==0.0.2
+    - git+https://github.com/davidbau/baukit
+    - git+https://github.com/google-research/bleurt
     - cachetools==5.3.0
     - charset-normalizer==2.1.1
     - click==8.1.3
@@ -284,7 +284,6 @@ dependencies:
     - scikit-learn==1.2.2
     - scipy==1.10.1
     - seaborn==0.12.2
-    - sklearn==0.0.post5
     - t5==0.7.1
     - tabulate==0.9.0
     - tenacity==8.2.2
@@ -301,11 +300,11 @@ dependencies:
     - tf-slim==1.1.0
     - tfds-nightly==4.9.2.dev202305230044
     - threadpoolctl==3.1.0
-    - tokenizers==0.13.3
+    - tokenizers==0.15.0
     - toml==0.10.2
     - tqdm==4.64.1
-    - transformers==4.31.0
-    - truthfulqa==0.0.1
+    - transformers==4.35.2
+    - git+https://github.com/sylinrl/TruthfulQA
     - types-pytz==2022.6.0.1
     - tzdata==2023.3
     - umap-learn==0.5.3
@@ -313,3 +312,4 @@ dependencies:
     - wrapt==1.14.1
     - xxhash==3.1.0
     - yarl==1.8.2
+  

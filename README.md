@@ -18,6 +18,7 @@ generated_new = model_new.generate(encoded_new.cuda())[0, encoded_new.shape[-1]:
 decoded_new = tokenizer_new.decode(generated_new, skip_special_tokens=True).strip()
 pprint(decoded_new)
 ```
+See `test.ipynb`.
 
 # Honest LLaMA
 
@@ -41,9 +42,6 @@ In this the root folder of this repo, run the following commands to set things u
 ```
 conda env create -f environment.yaml
 conda activate iti
-pip install git+https://github.com/davidbau/baukit
-pip install git+https://github.com/google-research/bleurt
-pip install git+https://github.com/sylinrl/TruthfulQA
 python -m ipykernel install --user --name iti --display-name "iti"
 mkdir -p validation/results_dump/answer_dump
 mkdir -p validation/results_dump/summary_dump
@@ -69,7 +67,15 @@ If successful, you can find your GPT-judge and GPT-info model names with the com
 
 (1) Get activations by running `bash get_activations.sh`. Layer-wise and head-wise activations are stored in the `features` folder. Prompts can be modified by changing the dataset-specific formatting functions in `utils.py`. 
 
-(2) Get into `validation` folder, then, e.g., `CUDA_VISIBLE_DEVICES=0 python validate_2fold.py llama_7B --num_heads 48 --alpha 15 --device 0 --num_fold 2 --use_center_of_mass --judge_name <your GPT-judge name> --info_name <your GPT-info name>` to test inference-time intervention on LLaMA-7B. Read the code to learn about additional options. 
+(2) Get into `validation` folder, then, e.g., `CUDA_VISIBLE_DEVICES=0 python validate_2fold.py llama_7B --num_heads 48 --alpha 15 --device 0 --num_fold 2 --use_center_of_mass --judge_name <your GPT-judge name> --info_name <your GPT-info name>` to test inference-time intervention on LLaMA-7B. Read the code to learn about additional options.
+
+(3) To create a modified model with ITI use `python edit_weight.py llama2_chat_7B` in the `validation` folder. `push_hf.py` can be used to upload this model to Huging Face.
+
+**_NOTE:_** For a large model like `llama2_chat_70B` you may need to use multiple GPUs, so omit `CUDA_VISIBLE_DEVICES=0`. In addition, it may be beneficial to save the model locally first with `huggingface-cli download` and load with `--model_dir` options, availible in `get_activations.py`, `edit_weight.py` and `validate_2fold.py`.
+
+### Results
+
+See `results.md` for example result runs.
 
 ## Additional datasets
 
