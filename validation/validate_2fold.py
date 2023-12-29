@@ -23,6 +23,8 @@ HF_NAMES = {
     'honest_vicuna_7B': 'results_dump/vicuna_7B_seed_42_top_48_heads_alpha_15', 
     'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
     'honest_llama2_chat_7B': 'results_dump/llama2_chat_7B_seed_42_top_48_heads_alpha_15', 
+    'llama2_chat_13B': 'meta-llama/Llama-2-13b-chat-hf', 
+    'honest_llama2_chat_13B': 'results_dump/llama2_chat_13B_seed_42_top_48_heads_alpha_15', 
     'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf', 
     'honest_llama2_chat_70B': 'results_dump/llama2_chat_70B_seed_42_top_48_heads_alpha_15', 
 }
@@ -139,7 +141,7 @@ def main():
             f'splits/fold_{i}_test_seed_{args.seed}.csv', 
             f'results_dump/answer_dump/{filename}.csv', 
             f'results_dump/summary_dump/{filename}.csv', 
-            device=args.device, 
+            device="cuda", 
             interventions=interventions, 
             intervention_fn=lt_modulated_vector_add, 
             judge_name=args.judge_name, 
