@@ -46,6 +46,20 @@ llama2_chat_13B      0.946078       0.590686  0.387255  0.564319  2.486696     0
 True*Info Score: 0.6020836791355518, True Score: 0.6266389807756844, Info Score: 0.9608142768109689, MC1 Score: 0.3623316074596098, MC2 Score: 0.5412067197590136, CE Loss: 2.4928841513395312, KL wrt Original: 0.26357506241649387
 ```
 
+Another run from a different machine:
+```
+FOLD 0
+Metric           GPT-info acc  GPT-judge acc       MC1       MC2   CE Loss  KL wrt Orig
+Model                                                                                  
+llama2_chat_13B       0.973105       0.657702  0.339853  0.516582  2.489339     0.290565
+FOLD 1
+Metric           GPT-info acc  GPT-judge acc       MC1       MC2   CE Loss  KL wrt Orig
+Model                                                                                  
+llama2_chat_13B      0.931373       0.678922  0.39951  0.588942  2.488423      0.21724
+
+True*Info Score: 0.6363923020562241, True Score: 0.6683116400594468, Info Score: 0.9522388417469678, MC1 Score: 0.3696815523275325, MC2 Score: 0.5527620726015736, CE Loss: 2.4888812631368635, KL wrt Original: 0.2539023122191429
+```
+
 ```python validate_2fold.py llama2_chat_70B --num_heads 48 --alpha 15 --device 0 --num_fold 2 --model_dir <DIR> --use_center_of_mass --judge_name <curie:ft-...> --info_name <curie:ft-...>```
 
 ```
@@ -142,3 +156,5 @@ See `llama2_chat_70b_tuning.md` for the hyperparameter sweep for the 70b LLama2-
 
 As can be seen from `llama2_chat_70b_tuning.md`, there are *no* values of `alpha` and `K` for which `meta-llama/Llama-2-70b-chat-hf` beats the baseline of `TruthfulQA`!
 The same is true for `meta-llama/Llama-2-13b-chat-hf`. We unfortunately must conclude that ITI does not scale well beyond 7B!
+
+KL: There are several possibilities in my opinion: (1) parameter size as you mentioned; (2) different of baseline performances (the ITI gain peters out as the baseline increases); (3) other aspects of ITI that wasn't well tuned, for newer models after LLaMA-1.
