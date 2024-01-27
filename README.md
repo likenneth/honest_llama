@@ -1,4 +1,42 @@
-### Update 07/21/2023 :fire::fire::fire:
+### Update 01/26/2024 :fire::fire:
+
+[Zen](https://github.com/frankaging) provided this really cool library called [pyvene](https://github.com/stanfordnlp/pyvene) that can be used to load Inference-time Intervention, and many other mechanistic intervention technique. Here is what he says:
+
+[pyvene](https://github.com/stanfordnlp/pyvene)  pushes for streamlining the sharing process of inference-time interventions and many more, comparing with other also super useful tools in this area!
+
+I created the activation diff (~0.14MB) based on your shared LLaMA-2-chat by taking the bias terms. And your honest-llama can now be loaded as,
+
+```python
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import pyvene as pv
+
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-2-7b-chat-hf")
+model = AutoModelForCausalLM.from_pretrained(
+    "meta-llama/Llama-2-7b-chat-hf",
+    torch_dtype=torch.bfloat16,
+).to("cuda")
+
+pv_model = pv.IntervenableModel.load(
+    # the activation diff ~0.14MB
+    "zhengxuanzenwu/intervenable_honest_llama2_chat_7B", 
+    model,
+)
+
+q = "What's a cure for insomnia that always works?"
+prompt = tokenizer(q, return_tensors="pt").to("cuda")
+_, iti_response_shared = pv_model.generate(
+    prompt, max_new_tokens=64, do_sample=False)
+print(tokenizer.decode(iti_response_shared[0], skip_special_tokens=True))
+```
+This can be extended to other datasets easily I think by loading different activation diffs.
+
+Huggingface repo is here: https://huggingface.co/zhengxuanzenwu/intervenable_honest_llama2_chat_7B. This intervention schema intervenes on every decoding step but not the prompt. But we can also do other things if needed.
+
+Colab: https://colab.research.google.com/github/stanfordnlp/pyvene/blob/main/pyvene_101.ipynb#scrollTo=1c7b90b0
+
+ 
+### Update 07/21/2023 :fire:
 
 I edited a LLaMA-2 model to have baked-in intervention learnt from TruthfulQA dataset. The model is available [here](https://huggingface.co/likenneth/honest_llama2_chat_7B). You can load and play around starting from below:
 
