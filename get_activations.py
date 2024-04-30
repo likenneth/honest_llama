@@ -65,8 +65,8 @@ def main():
     print("Getting activations")
     for prompt in tqdm(prompts):
         layer_wise_activations, head_wise_activations, _ = get_llama_activations_bau(model, prompt, device)
-        all_layer_wise_activations.append(layer_wise_activations[:,-1,:])
-        all_head_wise_activations.append(head_wise_activations[:,-1,:])
+        all_layer_wise_activations.append(layer_wise_activations[:,-1,:].copy())
+        all_head_wise_activations.append(head_wise_activations[:,-1,:].copy())
 
     print("Saving labels")
     np.save(f'features/{args.model_name}_{args.dataset_name}_labels.npy', labels)
