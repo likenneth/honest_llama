@@ -122,12 +122,11 @@ The modified nq_open and trivia_qa datasets used for transfer evaluation are ava
 ## How to Cite
 
 ```
-@misc{li2023inferencetime,
-      title={Inference-Time Intervention: Eliciting Truthful Answers from a Language Model}, 
-      author={Kenneth Li and Oam Patel and Fernanda Viégas and Hanspeter Pfister and Martin Wattenberg},
-      year={2023},
-      eprint={2306.03341},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@article{li2024inference,
+  title={Inference-time intervention: Eliciting truthful answers from a language model},
+  author={Li, Kenneth and Patel, Oam and Vi{\'e}gas, Fernanda and Pfister, Hanspeter and Wattenberg, Martin},
+  journal={Advances in Neural Information Processing Systems},
+  volume={36},
+  year={2024}
 }
 ```
