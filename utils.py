@@ -219,7 +219,6 @@ def tqa_run_answers(frame, engine, tag, preset, model=None, tokenizer=None, verb
             prompt = format_prompt(frame.loc[idx], preset, format='general')
             prefix = ''
             if instruction_prompt is not None:  # from Ouyang et al. (2022) Figure 17, followed by LLaMA evaluation, and then followed by us
-                print("instruction_prompt tqa_run_answers:", instruction_prompt)
                 prefix += instruction_prompt + '\n\n'
             if many_shot_prefix is not None:
                 prefix += many_shot_prefix + '\n\n'
@@ -310,7 +309,6 @@ def tqa_run_probs(frame, engine, tag, preset, model=None, tokenizer=None, verbos
                 if many_shot_prefix is not None:
                     input_prompt = many_shot_prefix + input_prompt
                 if instruction_prompt is not None:
-                    print("instruction_prompt tqa_run_probs:", instruction_prompt)
                     input_prompt = instruction_prompt + '\n\n' + input_prompt
                 
                 # --- intervention code --- #
@@ -332,7 +330,6 @@ def tqa_run_probs(frame, engine, tag, preset, model=None, tokenizer=None, verbos
                     if many_shot_prefix is not None:
                         prompt = many_shot_prefix + prompt
                     if instruction_prompt is not None:
-                        print("instruction_prompt tqa_run_probs:", instruction_prompt)
                         prompt = instruction_prompt + '\n\n' + prompt
                     
                     input_ids = tokenizer(input_prompt, return_tensors="pt").input_ids.to(device)
@@ -368,7 +365,6 @@ def tqa_run_probs(frame, engine, tag, preset, model=None, tokenizer=None, verbos
                     if many_shot_prefix is not None:
                         prompt = many_shot_prefix + prompt
                     if instruction_prompt is not None:
-                        print("instruction_prompt tqa_run_probs:", instruction_prompt) 
                         prompt = instruction_prompt + '\n\n' + prompt
                     
                     input_ids = tokenizer(input_prompt, return_tensors="pt").input_ids.to(device)
