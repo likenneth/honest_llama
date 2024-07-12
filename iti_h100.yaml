@@ -1,4 +1,4 @@
-name: iti
+name: iti_h100
 channels:
   - pytorch
   - nvidia
@@ -22,37 +22,37 @@ dependencies:
   - certifi=2022.12.7=py38h06a4308_0
   - cffi=1.15.1=py38h74dc2b5_0
   - cryptography=38.0.1=py38h9ce1e76_0
-  - cuda=11.6.2=0
-  - cuda-cccl=11.6.55=hf6102b2_0
-  - cuda-command-line-tools=11.6.2=0
-  - cuda-compiler=11.6.2=0
-  - cuda-cudart=11.6.55=he381448_0
-  - cuda-cudart-dev=11.6.55=h42ad0f4_0
-  - cuda-cuobjdump=11.6.124=h2eeebcb_0
-  - cuda-cupti=11.6.124=h86345e5_0
-  - cuda-cuxxfilt=11.6.124=hecbf4f6_0
-  - cuda-driver-dev=11.6.55=0
-  - cuda-gdb=11.8.86=0
-  - cuda-libraries=11.6.2=0
-  - cuda-libraries-dev=11.6.2=0
-  - cuda-memcheck=11.8.86=0
-  - cuda-nsight=11.8.86=0
-  - cuda-nsight-compute=11.8.0=0
-  - cuda-nvcc=11.6.124=hbba6d2d_0
-  - cuda-nvdisasm=11.8.86=0
-  - cuda-nvml-dev=11.6.55=haa9ef22_0
-  - cuda-nvprof=11.8.87=0
-  - cuda-nvprune=11.6.124=he22ec0a_0
-  - cuda-nvrtc=11.6.124=h020bade_0
-  - cuda-nvrtc-dev=11.6.124=h249d397_0
-  - cuda-nvtx=11.6.124=h0630a44_0
-  - cuda-nvvp=11.8.87=0
-  - cuda-runtime=11.6.2=0
-  - cuda-samples=11.6.101=h8efea70_0
-  - cuda-sanitizer-api=11.8.86=0
-  - cuda-toolkit=11.6.2=0
-  - cuda-tools=11.6.2=0
-  - cuda-visual-tools=11.6.2=0
+  - cuda
+  - cuda-cccl
+  - cuda-command-line-tools
+  - cuda-compiler
+  - cuda-cudart
+  - cuda-cudart-dev
+  - cuda-cuobjdump
+  - cuda-cupti
+  - cuda-cuxxfilt
+  - cuda-driver-dev
+  - cuda-gdb
+  - cuda-libraries
+  - cuda-libraries-dev
+  - cuda-memcheck
+  - cuda-nsight
+  - cuda-nsight-compute
+  - cuda-nvcc
+  - cuda-nvdisasm
+  - cuda-nvml-dev
+  - cuda-nvprof
+  - cuda-nvprune
+  - cuda-nvrtc
+  - cuda-nvrtc-dev
+  - cuda-nvtx
+  - cuda-nvvp
+  - cuda-runtime
+  - cuda-samples
+  - cuda-sanitizer-api
+  - cuda-toolkit
+  - cuda-tools
+  - cuda-visual-tools
   - debugpy=1.5.1=py38h295c915_0
   - decorator=5.1.1=pyhd3eb1b0_0
   - defusedxml=0.7.1=pyhd3eb1b0_0
@@ -164,9 +164,9 @@ dependencies:
   - python=3.8.15=h3fd9d12_0
   - python-dateutil=2.8.2=pyhd3eb1b0_0
   - python-fastjsonschema=2.16.2=py38h06a4308_0
-  - pytorch=1.13.0=py3.8_cuda11.6_cudnn8.3.2_0
-  - pytorch-cuda=11.6=h867d48c_0
-  - pytorch-mutex=1.0=cuda
+  - pytorch
+  - pytorch-cuda
+  - pytorch-mutex
   - pytz=2022.1=py38h06a4308_0
   - pyzmq=23.2.0=py38h6a678d5_0
   - readline=8.2=h5eee18b_0

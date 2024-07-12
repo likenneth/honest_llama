@@ -166,4 +166,6 @@ validation/results_dump
 validation/splits
 validation/sh*.sh
 validation/check_results.ipynb
+validation/sweeping/defult_prefix
+validation/sweeping/short_prefix
 TruthfulQA

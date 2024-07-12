@@ -8,6 +8,7 @@ from utils import get_llama_activations_bau, tokenized_tqa, tokenized_tqa_gen, t
 import llama
 import pickle
 import argparse
+from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
 
 HF_NAMES = {
     'llama_7B': 'baffo32/decapoda-research-llama-7B-hf',
@@ -17,6 +18,10 @@ HF_NAMES = {
     'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
     'llama2_chat_13B': 'meta-llama/Llama-2-13b-chat-hf', 
     'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf', 
+    'llama3_8B': 'meta-llama/Meta-Llama-3-8B',
+    'llama3_8B_instruct': 'meta-llama/Meta-Llama-3-8B-Instruct',
+    'llama3_70B': 'meta-llama/Meta-Llama-3-70B',
+    'llama3_70B_instruct': 'meta-llama/Meta-Llama-3-70B-Instruct'
 }
 
 def main(): 
@@ -35,18 +40,22 @@ def main():
 
     MODEL = HF_NAMES[args.model_name] if not args.model_dir else args.model_dir
 
-    tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
-    model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+    # USE DIFFERENT TOKENIZER/MODEL DEPENDING ON LLAMA VERSION
+    if args.model_name == "llama_7B":
+        tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
+        model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(MODEL)
+        model = AutoModelForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
     device = "cuda"
-
     if args.dataset_name == "tqa_mc2": 
-        dataset = load_dataset("truthful_qa", "multiple_choice")['validation']
+        dataset = load_dataset("truthfulqa/truthful_qa", "multiple_choice")['validation']
         formatter = tokenized_tqa
     elif args.dataset_name == "tqa_gen": 
-        dataset = load_dataset("truthful_qa", 'generation')['validation']
+        dataset = load_dataset("truthfulqa/truthful_qa", 'generation')['validation']
         formatter = tokenized_tqa_gen
     elif args.dataset_name == 'tqa_gen_end_q': 
-        dataset = load_dataset("truthful_qa", 'generation')['validation']
+        dataset = load_dataset("truthfulqa/truthful_qa", 'generation')['validation']
         formatter = tokenized_tqa_gen_end_q
     else: 
         raise ValueError("Invalid dataset name")

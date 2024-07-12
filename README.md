@@ -78,9 +78,9 @@ Some of the code is from [user-friendly llama](https://github.com/ypeleg/llama),
 ## Installation
 In this the root folder of this repo, run the following commands to set things up.
 ```
-conda env create -f environment.yaml
-conda activate iti
-python -m ipykernel install --user --name iti --display-name "iti"
+conda env create -f iti_h100.yaml
+conda activate iti_h100
+python -m ipykernel install --user --name iti_h100_kernel --display-name "iti_h100_kernel"
 mkdir -p validation/results_dump/answer_dump
 mkdir -p validation/results_dump/summary_dump
 mkdir -p validation/splits
@@ -92,14 +92,10 @@ git clone https://github.com/sylinrl/TruthfulQA.git
 
 Since we need to evaluate using TruthfulQA API, you should first export your OpenAI API key as an environment variable. Then install following [their instructions](https://github.com/sylinrl/TruthfulQA). 
 
-```
-cd TruthfulQA/data
-openai api fine_tunes.create -t finetune_truth.jsonl -m curie --n_epochs 5 --batch_size 21 --learning_rate_multiplier 0.1
-openai api fine_tunes.create -t finetune_info.jsonl -m curie --n_epochs 5 --batch_size 21 --learning_rate_multiplier 0.1
-cd ../..
+To finetune GPT-judge and GPT-info, run ```finetune_gpt.ipynb``` using your OpenAI API key.
 ```
 
-If successful, you can find your GPT-judge and GPT-info model names with the command `openai api fine_tunes.list | grep fine_tuned_model`. It should be a string starting with `curie:ft-`.
+If successful, you can find your GPT-judge and GPT-info model names with ```models = client.models.list()```. It should be a string starting with `ft:davinci-002:...`.
 
 ## Workflow
 
@@ -113,7 +109,7 @@ If successful, you can find your GPT-judge and GPT-info model names with the com
 
 ### Results
 
-See `results.md` for example result runs.
+See `results.md` and `llama3_70B_tuning.md` for example result runs.
 
 ## Additional datasets
 
