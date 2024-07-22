@@ -183,8 +183,8 @@ dependencies:
   - terminado=0.13.1=py38h06a4308_0
   - tinycss2=1.2.1=py38h06a4308_0
   - tk=8.6.12=h1ccaba5_0
-  - torchaudio=0.13.0=py38_cu116
-  - torchvision=0.14.0=py38_cu116
+  - torchaudio=2.3.1
+  - torchvision=0.18.1
   - tornado=6.2=py38h5eee18b_0
   - traitlets=5.1.1=pyhd3eb1b0_0
   - typing-extensions=4.3.0=py38h06a4308_0
