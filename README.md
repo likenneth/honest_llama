@@ -76,7 +76,7 @@ Some of the code is from [user-friendly llama](https://github.com/ypeleg/llama),
 
 
 ## Installation
-In this the root folder of this repo, run the following commands to set things up.
+In the root folder of this repo, run the following commands to set things up.
 ```
 conda env create -f environment.yaml
 conda activate iti
@@ -92,20 +92,15 @@ git clone https://github.com/sylinrl/TruthfulQA.git
 
 Since we need to evaluate using TruthfulQA API, you should first export your OpenAI API key as an environment variable. Then install following [their instructions](https://github.com/sylinrl/TruthfulQA). 
 
-```
-cd TruthfulQA/data
-openai api fine_tunes.create -t finetune_truth.jsonl -m curie --n_epochs 5 --batch_size 21 --learning_rate_multiplier 0.1
-openai api fine_tunes.create -t finetune_info.jsonl -m curie --n_epochs 5 --batch_size 21 --learning_rate_multiplier 0.1
-cd ../..
-```
+Next, you need to obtain GPT-judge and GPT-info models by finetuning on the TruthfulQA dataset. Run finetune_gpt.ipynb using your own OpenAI API key.
 
-If successful, you can find your GPT-judge and GPT-info model names with the command `openai api fine_tunes.list | grep fine_tuned_model`. It should be a string starting with `curie:ft-`.
+If successful, you can find your GPT-judge and GPT-info model names with the Python command `models = client.models.list()`. They should be strings starting with `ft:davinci-002:...:truthful` and `ft:davinci-002:...:informative`.
 
 ## Workflow
 
 (1) Get activations by running `bash get_activations.sh`. Layer-wise and head-wise activations are stored in the `features` folder. Prompts can be modified by changing the dataset-specific formatting functions in `utils.py`. 
 
-(2) Get into `validation` folder, then, e.g., `CUDA_VISIBLE_DEVICES=0 python validate_2fold.py llama_7B --num_heads 48 --alpha 15 --device 0 --num_fold 2 --use_center_of_mass --judge_name <your GPT-judge name> --info_name <your GPT-info name>` to test inference-time intervention on LLaMA-7B. Read the code to learn about additional options.
+(2) Get into `validation` folder, then, e.g., `CUDA_VISIBLE_DEVICES=0 python validate_2fold.py llama_7B --num_heads 48 --alpha 15 --device 0 --num_fold 2 --use_center_of_mass --instruction_prompt 'default' --judge_name <your GPT-judge name> --info_name <your GPT-info name>` to test inference-time intervention on LLaMA-7B. Read the code to learn about additional options.
 
 (3) To create a modified model with ITI use `python edit_weight.py llama2_chat_7B` in the `validation` folder. `push_hf.py` can be used to upload this model to Huging Face.
 
@@ -113,7 +108,7 @@ If successful, you can find your GPT-judge and GPT-info model names with the com
 
 ### Results
 
-See `results.md` for example result runs.
+See `llama3_tuning.md` for example result runs on the newest generation of Llama models.
 
 ## Additional datasets
 
