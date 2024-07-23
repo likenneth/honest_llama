@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 import argparse
 from datasets import load_dataset
+from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
 
 import sys
 sys.path.append('../')
@@ -27,7 +28,10 @@ HF_NAMES = {
     'honest_llama2_chat_13B': 'results_dump/llama2_chat_13B_seed_42_top_48_heads_alpha_15', 
     'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf', 
     'honest_llama2_chat_70B': 'results_dump/llama2_chat_70B_seed_42_top_48_heads_alpha_15', 
-}
+    'llama3_8B': 'meta-llama/Meta-Llama-3-8B',
+    'llama3_8B_instruct': 'meta-llama/Meta-Llama-3-8B-Instruct',
+    'llama3_70B': 'meta-llama/Meta-Llama-3-70B',
+    'llama3_70B_instruct': 'meta-llama/Meta-Llama-3-70B-Instruct',}
 
 def main(): 
     parser = argparse.ArgumentParser()
@@ -46,6 +50,7 @@ def main():
     parser.add_argument('--seed', type=int, default=42, help='seed')
     parser.add_argument('--judge_name', type=str, required=False)
     parser.add_argument('--info_name', type=str, required=False)
+    parser.add_argument('--instruction_prompt', default="default",type=str, required=False)
     args = parser.parse_args()
 
     # set seeds
@@ -82,9 +87,12 @@ def main():
     # create model
     model_name = HF_NAMES["honest_" + args.model_name if args.use_honest else args.model_name]
     MODEL = model_name if not args.model_dir else args.model_dir
-    tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
-    model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto")
-    
+    if model == "baffo32/decapoda-research-llama-7B-hf":
+        tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
+        model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto")
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(MODEL)
+        model = AutoModelForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
     # define number of layers and heads
     num_layers = model.config.num_hidden_layers
     num_heads = model.config.num_attention_heads
@@ -129,7 +137,7 @@ def main():
 
         print("Heads intervened: ", sorted(top_heads))
     
-        interventions = get_interventions_dict(top_heads, probes, tuning_activations, num_heads, args.use_center_of_mass, args.use_random_dir, com_directions)
+        interventions = get_interventions_dict(MODEL, top_heads, probes, tuning_activations, num_heads, args.use_center_of_mass, args.use_random_dir, com_directions)
 
         def lt_modulated_vector_add(head_output, layer_name, start_edit_location='lt'): 
             head_output = rearrange(head_output, 'b s (h d) -> b s h d', h=num_heads)
@@ -152,14 +160,15 @@ def main():
             filename = 'honest_' + filename
                     
         curr_fold_results = alt_tqa_evaluate(
-            {args.model_name: model}, 
-            ['judge', 'info', 'mc'], 
-            f'splits/fold_{i}_test_seed_{args.seed}.csv', 
-            f'results_dump/answer_dump/{filename}.csv', 
-            f'results_dump/summary_dump/{filename}.csv', 
+            models={args.model_name: model},
+            metric_names=['judge', 'info', 'mc'],
+            input_path=f'splits/fold_{i}_test_seed_{args.seed}.csv',
+            output_path=f'results_dump/answer_dump/{filename}.csv',
+            summary_path=f'results_dump/summary_dump/{filename}.csv',
             device="cuda", 
             interventions=interventions, 
             intervention_fn=lt_modulated_vector_add, 
+            instruction_prompt='default',
             judge_name=args.judge_name, 
             info_name=args.info_name
         )
@@ -173,7 +182,7 @@ def main():
     results = np.array(results)
     final = results.mean(axis=0)
 
-    print(f'True*Info Score: {final[1]*final[0]}, True Score: {final[1]}, Info Score: {final[0]}, MC1 Score: {final[2]}, MC2 Score: {final[3]}, CE Loss: {final[4]}, KL wrt Original: {final[5]}')
+    print(f'alpha: {args.alpha}, heads: {args.num_heads}, True*Info Score: {final[1]*final[0]}, True Score: {final[1]}, Info Score: {final[0]}, MC1 Score: {final[2]}, MC2 Score: {final[3]}, CE Loss: {final[4]}, KL wrt Original: {final[5]}')
 
 if __name__ == "__main__":
     main()

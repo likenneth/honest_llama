@@ -26,32 +26,33 @@ dependencies:
   - cuda-cccl=11.6.55=hf6102b2_0
   - cuda-command-line-tools=11.6.2=0
   - cuda-compiler=11.6.2=0
-  - cuda-cudart=11.6.55=he381448_0
+  - cuda-cudart=11.8.89=0
   - cuda-cudart-dev=11.6.55=h42ad0f4_0
   - cuda-cuobjdump=11.6.124=h2eeebcb_0
-  - cuda-cupti=11.6.124=h86345e5_0
+  - cuda-cupti=11.8.87=0
   - cuda-cuxxfilt=11.6.124=hecbf4f6_0
   - cuda-driver-dev=11.6.55=0
-  - cuda-gdb=11.8.86=0
-  - cuda-libraries=11.6.2=0
+  - cuda-gdb=12.5.39=0
+  - cuda-libraries=11.8.0=0
   - cuda-libraries-dev=11.6.2=0
   - cuda-memcheck=11.8.86=0
-  - cuda-nsight=11.8.86=0
+  - cuda-nsight=12.5.39=0
   - cuda-nsight-compute=11.8.0=0
   - cuda-nvcc=11.6.124=hbba6d2d_0
-  - cuda-nvdisasm=11.8.86=0
+  - cuda-nvdisasm=12.5.39=0
   - cuda-nvml-dev=11.6.55=haa9ef22_0
-  - cuda-nvprof=11.8.87=0
+  - cuda-nvprof=12.5.39=0
   - cuda-nvprune=11.6.124=he22ec0a_0
-  - cuda-nvrtc=11.6.124=h020bade_0
+  - cuda-nvrtc=11.8.89=0
   - cuda-nvrtc-dev=11.6.124=h249d397_0
-  - cuda-nvtx=11.6.124=h0630a44_0
-  - cuda-nvvp=11.8.87=0
-  - cuda-runtime=11.6.2=0
+  - cuda-nvtx=11.8.86=0
+  - cuda-nvvp=12.5.39=0
+  - cuda-runtime=11.8.0=0
   - cuda-samples=11.6.101=h8efea70_0
-  - cuda-sanitizer-api=11.8.86=0
+  - cuda-sanitizer-api=12.5.39=0
   - cuda-toolkit=11.6.2=0
   - cuda-tools=11.6.2=0
+  - cuda-version=12.5=3
   - cuda-visual-tools=11.6.2=0
   - debugpy=1.5.1=py38h295c915_0
   - decorator=5.1.1=pyhd3eb1b0_0
@@ -164,8 +165,8 @@ dependencies:
   - python=3.8.15=h3fd9d12_0
   - python-dateutil=2.8.2=pyhd3eb1b0_0
   - python-fastjsonschema=2.16.2=py38h06a4308_0
-  - pytorch=1.13.0=py3.8_cuda11.6_cudnn8.3.2_0
-  - pytorch-cuda=11.6=h867d48c_0
+  - pytorch=2.3.1=py3.8_cuda11.8_cudnn8.7.0_0
+  - pytorch-cuda=11.8=h7e8668a_5
   - pytorch-mutex=1.0=cuda
   - pytz=2022.1=py38h06a4308_0
   - pyzmq=23.2.0=py38h6a678d5_0
@@ -182,8 +183,8 @@ dependencies:
   - terminado=0.13.1=py38h06a4308_0
   - tinycss2=1.2.1=py38h06a4308_0
   - tk=8.6.12=h1ccaba5_0
-  - torchaudio=0.13.0=py38_cu116
-  - torchvision=0.14.0=py38_cu116
+  - torchaudio=2.3.1
+  - torchvision=0.18.1
   - tornado=6.2=py38h5eee18b_0
   - traitlets=5.1.1=pyhd3eb1b0_0
   - typing-extensions=4.3.0=py38h06a4308_0
