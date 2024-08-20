@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 import argparse
 from datasets import load_dataset
-
+from transformers import AutoTokenizer, AutoModelForCausalLM
 import sys
 sys.path.append('../')
 from utils import alt_tqa_evaluate, flattened_idx_to_layer_head, layer_head_to_flattened_idx, get_interventions_dict, get_top_heads, get_separated_activations, get_com_directions
@@ -72,10 +72,14 @@ def main():
     assert list(dataset['question']) == list(df["Question"])
 
     # create model
-    MODEL = HF_NAMES[args.model_name] if not args.model_dir else args.model_dir
-
-    tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
-    model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+    model_name = HF_NAMES[args.model_name]
+    MODEL = model_name if not args.model_dir else args.model_dir
+    if model_name == "baffo32/decapoda-research-llama-7B-hf":
+        tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
+        model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+    else:
+        tokenizer = AutoTokenizer.from_pretrained(MODEL)
+        model = AutoModelForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
 
     # define number of layers and heads
     num_layers = model.config.num_hidden_layers
