@@ -50,7 +50,7 @@ def main():
     parser.add_argument('--seed', type=int, default=42, help='seed')
     parser.add_argument('--judge_name', type=str, required=False)
     parser.add_argument('--info_name', type=str, required=False)
-    parser.add_argument('--instruction_prompt', default="default",type=str, required=False)
+    parser.add_argument('--instruction_prompt', default="default", help='instruction prompt for truthfulqa benchmarking, "default" or "informative"', type=str, required=False)
     args = parser.parse_args()
 
     # set seeds
@@ -87,7 +87,7 @@ def main():
     # create model
     model_name = HF_NAMES["honest_" + args.model_name if args.use_honest else args.model_name]
     MODEL = model_name if not args.model_dir else args.model_dir
-    if model == "baffo32/decapoda-research-llama-7B-hf":
+    if model_name == "baffo32/decapoda-research-llama-7B-hf":
         tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
         model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto")
     else:
@@ -168,7 +168,7 @@ def main():
             device="cuda", 
             interventions=interventions, 
             intervention_fn=lt_modulated_vector_add, 
-            instruction_prompt='default',
+            instruction_prompt=args.instruction_prompt,
             judge_name=args.judge_name, 
             info_name=args.info_name
         )

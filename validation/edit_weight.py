@@ -23,8 +23,11 @@ HF_NAMES = {
     'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
     'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf',
     'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf',
+    'llama3_8B': 'meta-llama/Meta-Llama-3-8B',
+    'llama3_8B_instruct': 'meta-llama/Meta-Llama-3-8B-Instruct',
+    'llama3_70B': 'meta-llama/Meta-Llama-3-70B',
+    'llama3_70B_instruct': 'meta-llama/Meta-Llama-3-70B-Instruct'
 }
-
 def main(): 
     parser = argparse.ArgumentParser()
     parser.add_argument("model_name", type=str, default='llama_7B', choices=HF_NAMES.keys(), help='model name')

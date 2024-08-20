@@ -8,6 +8,7 @@ from utils import get_llama_activations_bau, tokenized_tqa, tokenized_tqa_gen, t
 import llama
 import pickle
 import argparse
+from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
 
 HF_NAMES = {
     'llama_7B': 'baffo32/decapoda-research-llama-7B-hf',
@@ -20,7 +21,7 @@ HF_NAMES = {
     'llama3_8B': 'meta-llama/Meta-Llama-3-8B',
     'llama3_8B_instruct': 'meta-llama/Meta-Llama-3-8B-Instruct',
     'llama3_70B': 'meta-llama/Meta-Llama-3-70B',
-    'llama3_70B_instruct': 'meta-llama/Meta-Llama-3-70B-Instruct'l
+    'llama3_70B_instruct': 'meta-llama/Meta-Llama-3-70B-Instruct'
 }
 
 def main(): 
