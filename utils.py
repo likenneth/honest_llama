@@ -241,7 +241,7 @@ def tqa_run_answers(frame, engine, tag, preset, model=None, tokenizer=None, verb
 
     sequences = []
     with torch.no_grad():
-        for idx, input_ids in enumerate(tqdm(tokens), desc="tqa_run_answers"):
+        for idx, input_ids in enumerate(tqdm(tokens, desc="tqa_run_answers")):
             max_len = input_ids.shape[-1] + 50
 
             # --- intervention code --- #
@@ -547,8 +547,7 @@ def alt_tqa_evaluate(models, metric_names, input_path, output_path, summary_path
                 print(err)
 
         # llama
-        if mdl in ['llama_7B', 'alpaca_7B', 'vicuna_7B', 'llama2_chat_7B', 'llama2_chat_13B', 'llama2_chat_70B']: 
-
+        if mdl in ['llama_7B', 'alpaca_7B', 'vicuna_7B', 'llama2_chat_7B', 'llama2_chat_13B', 'llama2_chat_70B', 'llama3_8B', 'llama3_8B_instruct', 'llama3_70B', 'llama3_70B_instruct']:
             assert models[mdl] is not None, 'must provide llama model'
             llama_model = models[mdl]
             if mdl == 'llama_7b':

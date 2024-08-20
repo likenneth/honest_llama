@@ -109,8 +109,6 @@ def main():
     tuning_labels = np.load(f"../features/{args.model_name}_{activations_dataset}_labels.npy")
 
     separated_head_wise_activations, separated_labels, idxs_to_split_at = get_separated_activations(labels, head_wise_activations)
-    print(labels)
-    print(df)
     # run k-fold cross validation
     results = []
     for i in range(args.num_fold):
