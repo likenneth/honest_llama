@@ -155,12 +155,7 @@ def tokenized_tqa_gen(dataset, tokenizer):
 
 
 def get_llama_activations_bau(model, prompt, device): 
-    # Extract attention activations from different locations depending on the model architecture
-    # if model == "baffo32/decapoda-research-llama-7B-hf":
-    #     HEADS = [f"model.layers.{i}.self_attn.head_out" for i in range(model.config.num_hidden_layers)]
-    # else:
     HEADS = [f"model.layers.{i}.self_attn.o_proj" for i in range(model.config.num_hidden_layers)]
-    # HEADS = [f"model.layers.{i}.self_attn.head_out" for i in range(model.config.num_hidden_layers)]
     MLPS = [f"model.layers.{i}.mlp" for i in range(model.config.num_hidden_layers)]
 
     with torch.no_grad():
@@ -473,9 +468,6 @@ def run_kl_wrt_orig(model_key, model=None, tokenizer=None, device='cuda', interv
     rand_idxs = np.random.choice(len(owt), num_samples, replace=False).tolist()
 
     if separate_kl_device is not None: 
-        # if model_key == 'llama_7B':
-        #     orig_model = llama.LLaMAForCausalLM.from_pretrained(ENGINE_MAP[model_key], torch_dtype=torch.float16, low_cpu_mem_usage=True)
-        # else:
         orig_model = AutoModelForCausalLM.from_pretrained(ENGINE_MAP[model_key], torch_dtype=torch.float16, low_cpu_mem_usage=True)
         orig_model.to('cuda')
 
@@ -552,9 +544,6 @@ def alt_tqa_evaluate(models, metric_names, input_path, output_path, summary_path
         if 'llama' in mdl or 'alpaca' in mdl or 'vicuna' in mdl:
             assert models[mdl] is not None, 'must provide llama model'
             llama_model = models[mdl]
-            # if mdl == 'llama_7B':
-            #     llama_tokenizer = llama.LlamaTokenizer.from_pretrained(ENGINE_MAP[mdl])
-            # else:
             llama_tokenizer = AutoTokenizer.from_pretrained(ENGINE_MAP[mdl])
             if 'judge' in metric_names or 'info' in metric_names:
                 questions = tqa_run_answers(questions, ENGINE_MAP[mdl], mdl, preset, model=llama_model, tokenizer=llama_tokenizer,
@@ -712,11 +701,7 @@ def get_interventions_dict(top_heads, probes, tuning_activations, num_heads, use
 
     interventions = {}
     for layer, head in top_heads: 
-        # if model == "baffo32/decapoda-research-llama-7B-hf":
-        #     interventions[f"model.layers.{layer}.self_attn.head_out"] = []
-        # else:
         interventions[f"model.layers.{layer}.self_attn.o_proj"] = []
-        # interventions[f"model.layers.{layer}.self_attn.head_out"] = []
     for layer, head in top_heads:
         if use_center_of_mass: 
             direction = com_directions[layer_head_to_flattened_idx(layer, head, num_heads)]
@@ -728,18 +713,10 @@ def get_interventions_dict(top_heads, probes, tuning_activations, num_heads, use
         activations = tuning_activations[:,layer,head,:] # batch x 128
         proj_vals = activations @ direction.T
         proj_val_std = np.std(proj_vals)
-        # if model == "baffo32/decapoda-research-llama-7B-hf":
-        #     interventions[f"model.layers.{layer}.self_attn.head_out"].append((head, direction.squeeze(), proj_val_std))
-        # else:
         interventions[f"model.layers.{layer}.self_attn.o_proj"].append((head, direction.squeeze(), proj_val_std))
-        # interventions[f"model.layers.{layer}.self_attn.head_out"].append((head, direction.squeeze(), proj_val_std))
 
     for layer, head in top_heads: 
-        # if model == "baffo32/decapoda-research-llama-7B-hf":
-        #     interventions[f"model.layers.{layer}.self_attn.head_out"] = sorted(interventions[f"model.layers.{layer}.self_attn.head_out"], key = lambda x: x[0])
-        # else:
         interventions[f"model.layers.{layer}.self_attn.o_proj"] = sorted(interventions[f"model.layers.{layer}.self_attn.o_proj"], key = lambda x: x[0])
-        # interventions[f"model.layers.{layer}.self_attn.head_out"] = sorted(interventions[f"model.layers.{layer}.self_attn.head_out"], key = lambda x: x[0])
     return interventions
 
 def get_separated_activations(labels, head_wise_activations): 

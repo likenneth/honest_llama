@@ -18,12 +18,7 @@ def main():
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_path)
     model = AutoModelForCausalLM.from_pretrained(args.model_path, torch_dtype=torch.float16)
-
-    # LLaMAConfig.register_for_auto_class()
-    # LLaMATokenizer.register_for_auto_class("AutoTokenizer")
-    # LLaMAModel.register_for_auto_class("AutoModel")
-    # LLaMAForCausalLM.register_for_auto_class("AutoModelForCausalLM")
-
+    
     tokenizer.push_to_hub(f"{args.username}/honest_{args.model_name}")
     model.push_to_hub(f"{args.username}/honest_{args.model_name}")
 

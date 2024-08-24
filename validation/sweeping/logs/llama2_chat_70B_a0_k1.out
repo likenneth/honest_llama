@@ -11,3 +11,10 @@ llama2_chat_70B      0.706601       0.611247  ...  2.139847          0.0
 Running fold 1
 Heads intervened:  [(28, 12)]
 ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET
+FOLD 1
+Metric           GPT-info acc  GPT-judge acc  ...  CE Loss  KL wrt Orig
+Model                                         ...                      
+llama2_chat_70B      0.713235       0.647059  ...  2.23347          0.0
+
+[1 rows x 6 columns]
+alpha: 0.0, heads: 1, True*Info Score: 0.44664719628053084, True Score: 0.6291528836473466, Info Score: 0.7099183805551561, MC1 Score: 0.37335203029867203, MC2 Score: 0.5633721126827336, CE Loss: 2.1866581630706787, KL wrt Original: 0.0

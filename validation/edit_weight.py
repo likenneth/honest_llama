@@ -74,11 +74,6 @@ def main():
 
     # create model
     model_name = HF_NAMES[args.model_name]
-    # if model_name == "baffo32/decapoda-research-llama-7B-hf":
-    #     # tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
-    #     tokenizer = AutoTokenizer.from_pretrained(MODEL, unk_token="<unk>", bos_token="<s>", eos_token="</s>")
-    #     model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
-    # else:
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, device_map="auto")
 

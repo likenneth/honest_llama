@@ -28,16 +28,14 @@ HF_NAMES = {
     'llama3_8B_instruct': 'meta-llama/Meta-Llama-3-8B-Instruct',
     'llama3_70B': 'meta-llama/Meta-Llama-3-70B',
     'llama3_70B_instruct': 'meta-llama/Meta-Llama-3-70B-Instruct',
+
     # HF edited models (ITI baked-in)
-    'honest_llama3_8B': 'jujipotle/honest_llama3_8B', # Heads=48, alpha=15
     'honest_llama_7B': 'jujipotle/honest_llama_7B', # Heads=48, alpha=15
     # 'honest_llama2_chat_7B': 'likenneth/honest_llama2_chat_7B', # Heads=?, alpha=?
     'honest_llama2_chat_7B': 'jujipotle/honest_llama2_chat_7B', # Heads=48, alpha=15
     'honest_llama2_chat_13B': 'jujipotle/honest_llama2_chat_13B', # Heads=48, alpha=15
     'honest_llama2_chat_70B': 'jujipotle/honest_llama2_chat_70B', # Heads=48, alpha=15
-    'honest_llama3_8B': 'jujipotle/honest_llama3_8B', # Heads=48, alpha=15
     'honest_llama3_8B_instruct': 'jujipotle/honest_llama3_8B_instruct', # Heads=48, alpha=15
-    'honest_llama3_70B': 'jujipotle/honest_llama3_70B', # Heads=48, alpha=15
     'honest_llama3_70B_instruct': 'jujipotle/honest_llama3_70B_instruct', # Heads=48, alpha=15
     # Locally edited models (ITI baked-in)
     'local_llama_7B': 'results_dump/edited_models_dump/llama_7B_seed_42_top_48_heads_alpha_15',
@@ -101,10 +99,6 @@ def main():
 
     # create model
     model_name_or_path = HF_NAMES[args.model_prefix + args.model_name]
-    # if model_path == "baffo32/decapoda-research-llama-7B-hf":
-    #     tokenizer = llama.LlamaTokenizer.from_pretrained(model_path)
-    #     model = llama.LlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True)
-    # else:
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, trust_remote_code=True)
     model = AutoModelForCausalLM.from_pretrained(model_name_or_path, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True)
     # define number of layers and heads
