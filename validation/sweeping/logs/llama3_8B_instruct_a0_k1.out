@@ -1,0 +1,20 @@
+model_prefix: , model_name: llama3_8B_instruct, k: 1, alpha: 0
+Running fold 0
+Heads intervened:  [(12, 7)]
+ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET
+FOLD 0
+Metric              GPT-info acc  GPT-judge acc  ...   CE Loss  KL wrt Orig
+Model                                            ...                       
+llama3_8B_instruct      0.841076       0.635697  ...  2.740826          0.0
+
+[1 rows x 6 columns]
+Running fold 1
+Heads intervened:  [(12, 6)]
+ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET
+FOLD 1
+Metric              GPT-info acc  GPT-judge acc  ...   CE Loss  KL wrt Orig
+Model                                            ...                       
+llama3_8B_instruct      0.835784       0.642157  ...  2.811036          0.0
+
+[1 rows x 6 columns]
+alpha: 0.0, heads: 1, True*Info Score: 0.5356954668602201, True Score: 0.6389268421304952, Info Score: 0.8384300541732586, MC1 Score: 0.39048492257538714, MC2 Score: 0.5861101756006616, CE Loss: 2.775930625796318, KL wrt Original: 0.0

@@ -1,0 +1,25 @@
+model_prefix: , model_name: llama3_8B_instruct, k: 48, alpha: 15
+Running fold 0
+Heads intervened:  [(12, 0), (12, 1), (12, 2), (12, 3), (12, 5), (12, 6), (12, 7), (12, 8), (12, 9), (12, 10), (12, 11), (12, 12), (12, 13), (12, 14), (12, 15), (12, 16), (12, 17), (12, 18), (12, 19), (12, 20), (12, 21), (12, 22), (12, 23), (12, 24), (12, 25), (12, 26), (12, 27), (12, 28), (12, 29), (12, 31), (13, 1), (13, 2), (13, 4), (13, 6), (13, 7), (13, 9), (13, 14), (13, 15), (13, 18), (13, 20), (13, 23), (13, 27), (13, 29), (13, 30), (13, 31), (15, 29), (16, 3), (16, 13)]
+ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET
+HTTP code 502 from API (<html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>cloudflare</center>
+</body>
+</html>
+)
+FOLD 0
+Metric              GPT-info acc       MC1       MC2  CE Loss  KL wrt Orig
+Model                                                                     
+llama3_8B_instruct      0.841076  0.369193  0.586001  2.87224     0.337717
+Running fold 1
+Heads intervened:  [(9, 15), (11, 0), (12, 0), (12, 1), (12, 2), (12, 3), (12, 4), (12, 5), (12, 6), (12, 7), (12, 8), (12, 9), (12, 10), (12, 11), (12, 12), (12, 13), (12, 14), (12, 15), (12, 16), (12, 17), (12, 18), (12, 19), (12, 20), (12, 21), (12, 22), (12, 23), (12, 24), (12, 26), (12, 27), (12, 28), (12, 29), (12, 31), (13, 1), (13, 2), (13, 9), (13, 11), (13, 13), (13, 14), (13, 16), (13, 18), (13, 19), (13, 21), (13, 22), (13, 25), (13, 30), (15, 22), (16, 3), (16, 8)]
+ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET
+FOLD 1
+Metric              GPT-info acc  GPT-judge acc  ...   CE Loss  KL wrt Orig
+Model                                            ...                       
+llama3_8B_instruct      0.889706       0.696078  ...  2.868696     0.260565
+
+[1 rows x 6 columns]

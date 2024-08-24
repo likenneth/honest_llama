@@ -90,7 +90,7 @@ git clone https://github.com/sylinrl/TruthfulQA.git
 
 ## TruthfulQA Evaluation
 
-Since we need to evaluate using TruthfulQA API, you should first export your OpenAI API key as an environment variable. Then install following [their instructions](https://github.com/sylinrl/TruthfulQA) to the iti environment. Some pip packages installed via TruthfulQA are outdated; important ones to update are datasets, transformers, openai, einops.
+Since we need to evaluate using TruthfulQA API, you should first export your OpenAI API key as an environment variable. Then install following [their instructions](https://github.com/sylinrl/TruthfulQA) to the iti environment. Some pip packages installed via TruthfulQA are outdated; important ones to update are datasets, transformers, einops.
 
 
 Next, you need to obtain GPT-judge and GPT-info models by finetuning on the TruthfulQA dataset. Run finetune_gpt.ipynb using your own OpenAI API key.

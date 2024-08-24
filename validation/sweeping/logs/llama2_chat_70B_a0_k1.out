@@ -1,0 +1,13 @@
+model_prefix: , model_name: llama2_chat_70B, k: 1, alpha: 0
+Running fold 0
+Heads intervened:  [(27, 20)]
+ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET
+FOLD 0
+Metric           GPT-info acc  GPT-judge acc  ...   CE Loss  KL wrt Orig
+Model                                         ...                       
+llama2_chat_70B      0.706601       0.611247  ...  2.139847          0.0
+
+[1 rows x 6 columns]
+Running fold 1
+Heads intervened:  [(28, 12)]
+ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET

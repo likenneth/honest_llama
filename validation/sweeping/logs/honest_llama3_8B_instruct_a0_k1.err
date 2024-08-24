@@ -1,0 +1,650 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:10<00:10, 10.13s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:16<00:00,  7.72s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:16<00:00,  8.08s/it]
+Some weights of LlamaForCausalLM were not initialized from the model checkpoint at results_dump/edited_models_dump/llama3_8B_instruct_seed_42_top_48_heads_alpha_15 and are newly initialized: ['model.layers.0.self_attn.k_proj.bias', 'model.layers.0.self_attn.o_proj.bias', 'model.layers.0.self_attn.q_proj.bias', 'model.layers.0.self_attn.v_proj.bias', 'model.layers.1.self_attn.k_proj.bias', 'model.layers.1.self_attn.o_proj.bias', 'model.layers.1.self_attn.q_proj.bias', 'model.layers.1.self_attn.v_proj.bias', 'model.layers.10.self_attn.k_proj.bias', 'model.layers.10.self_attn.o_proj.bias', 'model.layers.10.self_attn.q_proj.bias', 'model.layers.10.self_attn.v_proj.bias', 'model.layers.11.self_attn.k_proj.bias', 'model.layers.11.self_attn.q_proj.bias', 'model.layers.11.self_attn.v_proj.bias', 'model.layers.12.self_attn.k_proj.bias', 'model.layers.12.self_attn.q_proj.bias', 'model.layers.12.self_attn.v_proj.bias', 'model.layers.13.self_attn.k_proj.bias', 'model.layers.13.self_attn.q_proj.bias', 'model.layers.13.self_attn.v_proj.bias', 'model.layers.14.self_attn.k_proj.bias', 'model.layers.14.self_attn.o_proj.bias', 'model.layers.14.self_attn.q_proj.bias', 'model.layers.14.self_attn.v_proj.bias', 'model.layers.15.self_attn.k_proj.bias', 'model.layers.15.self_attn.o_proj.bias', 'model.layers.15.self_attn.q_proj.bias', 'model.layers.15.self_attn.v_proj.bias', 'model.layers.16.self_attn.k_proj.bias', 'model.layers.16.self_attn.q_proj.bias', 'model.layers.16.self_attn.v_proj.bias', 'model.layers.17.self_attn.k_proj.bias', 'model.layers.17.self_attn.o_proj.bias', 'model.layers.17.self_attn.q_proj.bias', 'model.layers.17.self_attn.v_proj.bias', 'model.layers.18.self_attn.k_proj.bias', 'model.layers.18.self_attn.o_proj.bias', 'model.layers.18.self_attn.q_proj.bias', 'model.layers.18.self_attn.v_proj.bias', 'model.layers.19.self_attn.k_proj.bias', 'model.layers.19.self_attn.o_proj.bias', 'model.layers.19.self_attn.q_proj.bias', 'model.layers.19.self_attn.v_proj.bias', 'model.layers.2.self_attn.k_proj.bias', 'model.layers.2.self_attn.o_proj.bias', 'model.layers.2.self_attn.q_proj.bias', 'model.layers.2.self_attn.v_proj.bias', 'model.layers.20.self_attn.k_proj.bias', 'model.layers.20.self_attn.o_proj.bias', 'model.layers.20.self_attn.q_proj.bias', 'model.layers.20.self_attn.v_proj.bias', 'model.layers.21.self_attn.k_proj.bias', 'model.layers.21.self_attn.o_proj.bias', 'model.layers.21.self_attn.q_proj.bias', 'model.layers.21.self_attn.v_proj.bias', 'model.layers.22.self_attn.k_proj.bias', 'model.layers.22.self_attn.o_proj.bias', 'model.layers.22.self_attn.q_proj.bias', 'model.layers.22.self_attn.v_proj.bias', 'model.layers.23.self_attn.k_proj.bias', 'model.layers.23.self_attn.o_proj.bias', 'model.layers.23.self_attn.q_proj.bias', 'model.layers.23.self_attn.v_proj.bias', 'model.layers.24.self_attn.k_proj.bias', 'model.layers.24.self_attn.o_proj.bias', 'model.layers.24.self_attn.q_proj.bias', 'model.layers.24.self_attn.v_proj.bias', 'model.layers.25.self_attn.k_proj.bias', 'model.layers.25.self_attn.o_proj.bias', 'model.layers.25.self_attn.q_proj.bias', 'model.layers.25.self_attn.v_proj.bias', 'model.layers.26.self_attn.k_proj.bias', 'model.layers.26.self_attn.o_proj.bias', 'model.layers.26.self_attn.q_proj.bias', 'model.layers.26.self_attn.v_proj.bias', 'model.layers.27.self_attn.k_proj.bias', 'model.layers.27.self_attn.o_proj.bias', 'model.layers.27.self_attn.q_proj.bias', 'model.layers.27.self_attn.v_proj.bias', 'model.layers.28.self_attn.k_proj.bias', 'model.layers.28.self_attn.o_proj.bias', 'model.layers.28.self_attn.q_proj.bias', 'model.layers.28.self_attn.v_proj.bias', 'model.layers.29.self_attn.k_proj.bias', 'model.layers.29.self_attn.o_proj.bias', 'model.layers.29.self_attn.q_proj.bias', 'model.layers.29.self_attn.v_proj.bias', 'model.layers.3.self_attn.k_proj.bias', 'model.layers.3.self_attn.o_proj.bias', 'model.layers.3.self_attn.q_proj.bias', 'model.layers.3.self_attn.v_proj.bias', 'model.layers.30.self_attn.k_proj.bias', 'model.layers.30.self_attn.o_proj.bias', 'model.layers.30.self_attn.q_proj.bias', 'model.layers.30.self_attn.v_proj.bias', 'model.layers.31.self_attn.k_proj.bias', 'model.layers.31.self_attn.o_proj.bias', 'model.layers.31.self_attn.q_proj.bias', 'model.layers.31.self_attn.v_proj.bias', 'model.layers.4.self_attn.k_proj.bias', 'model.layers.4.self_attn.o_proj.bias', 'model.layers.4.self_attn.q_proj.bias', 'model.layers.4.self_attn.v_proj.bias', 'model.layers.5.self_attn.k_proj.bias', 'model.layers.5.self_attn.o_proj.bias', 'model.layers.5.self_attn.q_proj.bias', 'model.layers.5.self_attn.v_proj.bias', 'model.layers.6.self_attn.k_proj.bias', 'model.layers.6.self_attn.o_proj.bias', 'model.layers.6.self_attn.q_proj.bias', 'model.layers.6.self_attn.v_proj.bias', 'model.layers.7.self_attn.k_proj.bias', 'model.layers.7.self_attn.o_proj.bias', 'model.layers.7.self_attn.q_proj.bias', 'model.layers.7.self_attn.v_proj.bias', 'model.layers.8.self_attn.k_proj.bias', 'model.layers.8.self_attn.o_proj.bias', 'model.layers.8.self_attn.q_proj.bias', 'model.layers.8.self_attn.v_proj.bias', 'model.layers.9.self_attn.k_proj.bias', 'model.layers.9.self_attn.o_proj.bias', 'model.layers.9.self_attn.q_proj.bias', 'model.layers.9.self_attn.v_proj.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+get_com_directions:   0%|          | 0/32 [00:00<?, ?it/s]get_com_directions:   6%|▋         | 2/32 [00:00<00:01, 18.12it/s]get_com_directions:  12%|█▎        | 4/32 [00:00<00:01, 18.37it/s]get_com_directions:  19%|█▉        | 6/32 [00:00<00:01, 18.56it/s]get_com_directions:  25%|██▌       | 8/32 [00:00<00:01, 18.70it/s]get_com_directions:  31%|███▏      | 10/32 [00:00<00:01, 18.79it/s]get_com_directions:  38%|███▊      | 12/32 [00:00<00:01, 18.84it/s]get_com_directions:  44%|████▍     | 14/32 [00:00<00:00, 18.90it/s]get_com_directions:  50%|█████     | 16/32 [00:00<00:00, 18.91it/s]get_com_directions:  56%|█████▋    | 18/32 [00:00<00:00, 18.93it/s]get_com_directions:  62%|██████▎   | 20/32 [00:01<00:00, 18.95it/s]get_com_directions:  69%|██████▉   | 22/32 [00:01<00:00, 18.96it/s]get_com_directions:  75%|███████▌  | 24/32 [00:01<00:00, 18.95it/s]get_com_directions:  81%|████████▏ | 26/32 [00:01<00:00, 18.95it/s]get_com_directions:  88%|████████▊ | 28/32 [00:01<00:00, 18.96it/s]get_com_directions:  94%|█████████▍| 30/32 [00:01<00:00, 18.95it/s]get_com_directions: 100%|██████████| 32/32 [00:01<00:00, 18.95it/s]get_com_directions: 100%|██████████| 32/32 [00:01<00:00, 18.86it/s]
+train_probes:   0%|          | 0/32 [00:00<?, ?it/s]train_probes:   3%|▎         | 1/32 [00:00<00:08,  3.81it/s]train_probes:   6%|▋         | 2/32 [00:00<00:07,  3.83it/s]train_probes:   9%|▉         | 3/32 [00:00<00:07,  3.96it/s]train_probes:  12%|█▎        | 4/32 [00:01<00:07,  3.53it/s]train_probes:  16%|█▌        | 5/32 [00:01<00:08,  3.12it/s]train_probes:  19%|█▉        | 6/32 [00:01<00:08,  2.94it/s]train_probes:  22%|██▏       | 7/32 [00:02<00:08,  2.81it/s]train_probes:  25%|██▌       | 8/32 [00:02<00:08,  2.99it/s]train_probes:  28%|██▊       | 9/32 [00:02<00:07,  2.96it/s]train_probes:  31%|███▏      | 10/32 [00:03<00:07,  3.10it/s]train_probes:  34%|███▍      | 11/32 [00:03<00:06,  3.05it/s]train_probes:  38%|███▊      | 12/32 [00:03<00:06,  3.17it/s]train_probes:  41%|████      | 13/32 [00:04<00:05,  3.34it/s]train_probes:  44%|████▍     | 14/32 [00:04<00:05,  3.44it/s]train_probes:  47%|████▋     | 15/32 [00:04<00:04,  3.44it/s]train_probes:  50%|█████     | 16/32 [00:04<00:04,  3.41it/s]train_probes:  53%|█████▎    | 17/32 [00:05<00:04,  3.49it/s]train_probes:  56%|█████▋    | 18/32 [00:05<00:04,  3.34it/s]train_probes:  59%|█████▉    | 19/32 [00:05<00:03,  3.27it/s]train_probes:  62%|██████▎   | 20/32 [00:06<00:03,  3.18it/s]train_probes:  66%|██████▌   | 21/32 [00:06<00:03,  3.17it/s]train_probes:  69%|██████▉   | 22/32 [00:06<00:03,  2.94it/s]train_probes:  72%|███████▏  | 23/32 [00:07<00:03,  2.81it/s]train_probes:  75%|███████▌  | 24/32 [00:07<00:03,  2.65it/s]train_probes:  78%|███████▊  | 25/32 [00:08<00:02,  2.80it/s]train_probes:  81%|████████▏ | 26/32 [00:08<00:02,  2.85it/s]train_probes:  84%|████████▍ | 27/32 [00:08<00:01,  2.86it/s]train_probes:  88%|████████▊ | 28/32 [00:09<00:01,  2.84it/s]train_probes:  91%|█████████ | 29/32 [00:09<00:01,  2.91it/s]train_probes:  94%|█████████▍| 30/32 [00:09<00:00,  2.89it/s]train_probes:  97%|█████████▋| 31/32 [00:10<00:00,  2.75it/s]train_probes: 100%|██████████| 32/32 [00:10<00:00,  2.25it/s]train_probes: 100%|██████████| 32/32 [00:10<00:00,  2.97it/s]
+tqa_run_answers:   0%|          | 0/409 [00:00<?, ?it/s]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+tqa_run_answers:   0%|          | 1/409 [00:07<52:42,  7.75s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   0%|          | 2/409 [00:09<26:40,  3.93s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   1%|          | 3/409 [00:10<18:20,  2.71s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   1%|          | 4/409 [00:11<14:25,  2.14s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   1%|          | 5/409 [00:12<12:15,  1.82s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   1%|▏         | 6/409 [00:14<10:56,  1.63s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   2%|▏         | 7/409 [00:15<10:06,  1.51s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   2%|▏         | 8/409 [00:16<09:32,  1.43s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   2%|▏         | 9/409 [00:17<09:09,  1.37s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   2%|▏         | 10/409 [00:19<08:54,  1.34s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   3%|▎         | 11/409 [00:20<08:42,  1.31s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   3%|▎         | 12/409 [00:21<08:34,  1.30s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   3%|▎         | 13/409 [00:22<08:28,  1.28s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   3%|▎         | 14/409 [00:24<08:24,  1.28s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   4%|▎         | 15/409 [00:25<08:20,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   4%|▍         | 16/409 [00:26<08:18,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   4%|▍         | 17/409 [00:27<08:15,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   4%|▍         | 18/409 [00:29<08:13,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   5%|▍         | 19/409 [00:30<08:12,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   5%|▍         | 20/409 [00:31<08:10,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   5%|▌         | 21/409 [00:32<08:18,  1.29s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   5%|▌         | 22/409 [00:34<08:14,  1.28s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   6%|▌         | 23/409 [00:35<08:10,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   6%|▌         | 24/409 [00:36<08:08,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   6%|▌         | 25/409 [00:38<08:09,  1.28s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   6%|▋         | 26/409 [00:39<08:06,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   7%|▋         | 27/409 [00:40<08:03,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   7%|▋         | 28/409 [00:41<08:01,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   7%|▋         | 29/409 [00:43<07:59,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   7%|▋         | 30/409 [00:44<07:57,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   8%|▊         | 31/409 [00:45<07:56,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   8%|▊         | 32/409 [00:46<07:54,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   8%|▊         | 33/409 [00:48<07:53,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   8%|▊         | 34/409 [00:49<07:52,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   9%|▊         | 35/409 [00:50<07:50,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   9%|▉         | 36/409 [00:51<07:49,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   9%|▉         | 37/409 [00:53<07:47,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:   9%|▉         | 38/409 [00:54<07:46,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  10%|▉         | 39/409 [00:55<07:45,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  10%|▉         | 40/409 [00:56<07:44,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  10%|█         | 41/409 [00:58<07:42,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  10%|█         | 42/409 [00:59<07:41,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  11%|█         | 43/409 [01:00<07:40,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  11%|█         | 44/409 [01:01<07:38,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  11%|█         | 45/409 [01:03<07:37,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  11%|█         | 46/409 [01:04<07:36,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  11%|█▏        | 47/409 [01:05<07:35,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  12%|█▏        | 48/409 [01:06<07:33,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  12%|█▏        | 49/409 [01:08<07:32,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  12%|█▏        | 50/409 [01:09<07:31,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  12%|█▏        | 51/409 [01:10<07:30,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  13%|█▎        | 52/409 [01:12<07:34,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  13%|█▎        | 53/409 [01:13<07:31,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  13%|█▎        | 54/409 [01:14<07:29,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  13%|█▎        | 55/409 [01:15<07:27,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  14%|█▎        | 56/409 [01:17<07:25,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  14%|█▍        | 57/409 [01:18<07:24,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  14%|█▍        | 58/409 [01:19<07:22,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  14%|█▍        | 59/409 [01:20<07:20,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  15%|█▍        | 60/409 [01:22<07:19,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  15%|█▍        | 61/409 [01:23<07:18,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  15%|█▌        | 62/409 [01:24<07:16,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  15%|█▌        | 63/409 [01:25<07:15,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  16%|█▌        | 64/409 [01:27<07:14,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  16%|█▌        | 65/409 [01:28<07:13,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  16%|█▌        | 66/409 [01:29<07:11,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  16%|█▋        | 67/409 [01:30<07:10,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  17%|█▋        | 68/409 [01:32<07:08,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  17%|█▋        | 69/409 [01:33<07:07,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  17%|█▋        | 70/409 [01:34<07:06,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  17%|█▋        | 71/409 [01:35<07:05,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  18%|█▊        | 72/409 [01:37<07:03,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  18%|█▊        | 73/409 [01:38<07:02,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  18%|█▊        | 74/409 [01:39<07:01,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  18%|█▊        | 75/409 [01:41<07:00,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  19%|█▊        | 76/409 [01:42<06:58,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  19%|█▉        | 77/409 [01:43<07:03,  1.28s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  19%|█▉        | 78/409 [01:44<07:00,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  19%|█▉        | 79/409 [01:46<06:57,  1.27s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  20%|█▉        | 80/409 [01:47<06:55,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  20%|█▉        | 81/409 [01:48<06:53,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  20%|██        | 82/409 [01:49<06:52,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  20%|██        | 83/409 [01:51<06:50,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  21%|██        | 84/409 [01:52<06:49,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  21%|██        | 85/409 [01:53<06:47,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  21%|██        | 86/409 [01:54<06:46,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  21%|██▏       | 87/409 [01:56<06:45,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  22%|██▏       | 88/409 [01:57<06:43,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  22%|██▏       | 89/409 [01:58<06:42,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  22%|██▏       | 90/409 [01:59<06:41,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  22%|██▏       | 91/409 [02:01<06:40,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  22%|██▏       | 92/409 [02:02<06:38,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  23%|██▎       | 93/409 [02:03<06:37,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  23%|██▎       | 94/409 [02:04<06:35,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  23%|██▎       | 95/409 [02:06<06:35,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  23%|██▎       | 96/409 [02:07<06:33,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  24%|██▎       | 97/409 [02:08<06:32,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  24%|██▍       | 98/409 [02:09<06:31,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  24%|██▍       | 99/409 [02:11<06:29,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  24%|██▍       | 100/409 [02:12<06:28,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  25%|██▍       | 101/409 [02:13<06:27,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  25%|██▍       | 102/409 [02:15<06:26,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  25%|██▌       | 103/409 [02:16<06:25,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  25%|██▌       | 104/409 [02:17<06:23,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  26%|██▌       | 105/409 [02:18<06:22,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  26%|██▌       | 106/409 [02:20<06:21,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  26%|██▌       | 107/409 [02:21<06:20,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  26%|██▋       | 108/409 [02:22<06:18,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  27%|██▋       | 109/409 [02:23<06:17,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  27%|██▋       | 110/409 [02:25<06:16,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  27%|██▋       | 111/409 [02:26<06:15,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  27%|██▋       | 112/409 [02:27<06:14,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  28%|██▊       | 113/409 [02:28<06:12,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  28%|██▊       | 114/409 [02:30<06:11,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  28%|██▊       | 115/409 [02:31<06:10,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  28%|██▊       | 116/409 [02:32<06:09,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  29%|██▊       | 117/409 [02:33<06:07,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  29%|██▉       | 118/409 [02:35<06:06,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  29%|██▉       | 119/409 [02:36<06:05,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  29%|██▉       | 120/409 [02:37<06:04,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  30%|██▉       | 121/409 [02:38<06:02,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  30%|██▉       | 122/409 [02:40<06:01,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  30%|███       | 123/409 [02:41<06:00,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  30%|███       | 124/409 [02:42<05:58,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  31%|███       | 125/409 [02:43<05:57,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  31%|███       | 126/409 [02:45<05:56,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  31%|███       | 127/409 [02:46<05:54,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  31%|███▏      | 128/409 [02:47<05:54,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  32%|███▏      | 129/409 [02:49<05:52,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  32%|███▏      | 130/409 [02:50<05:51,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  32%|███▏      | 131/409 [02:51<05:50,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  32%|███▏      | 132/409 [02:52<05:48,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  33%|███▎      | 133/409 [02:54<05:47,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  33%|███▎      | 134/409 [02:55<05:46,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  33%|███▎      | 135/409 [02:56<05:45,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  33%|███▎      | 136/409 [02:57<05:43,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  33%|███▎      | 137/409 [02:59<05:42,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  34%|███▎      | 138/409 [03:00<05:41,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  34%|███▍      | 139/409 [03:01<05:39,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  34%|███▍      | 140/409 [03:02<05:38,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  34%|███▍      | 141/409 [03:04<05:37,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  35%|███▍      | 142/409 [03:05<05:36,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  35%|███▍      | 143/409 [03:06<05:35,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  35%|███▌      | 144/409 [03:07<05:33,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  35%|███▌      | 145/409 [03:09<05:32,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  36%|███▌      | 146/409 [03:10<05:31,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  36%|███▌      | 147/409 [03:11<05:29,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  36%|███▌      | 148/409 [03:12<05:28,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  36%|███▋      | 149/409 [03:14<05:27,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  37%|███▋      | 150/409 [03:15<05:26,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  37%|███▋      | 151/409 [03:16<05:24,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  37%|███▋      | 152/409 [03:18<05:23,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  37%|███▋      | 153/409 [03:19<05:22,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  38%|███▊      | 154/409 [03:20<05:20,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  38%|███▊      | 155/409 [03:21<05:19,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  38%|███▊      | 156/409 [03:23<05:18,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  38%|███▊      | 157/409 [03:24<05:17,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  39%|███▊      | 158/409 [03:25<05:16,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  39%|███▉      | 159/409 [03:26<05:14,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  39%|███▉      | 160/409 [03:28<05:13,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  39%|███▉      | 161/409 [03:29<05:12,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  40%|███▉      | 162/409 [03:30<05:10,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  40%|███▉      | 163/409 [03:31<05:09,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  40%|████      | 164/409 [03:33<05:08,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  40%|████      | 165/409 [03:34<05:06,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  41%|████      | 166/409 [03:35<05:05,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  41%|████      | 167/409 [03:36<05:04,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  41%|████      | 168/409 [03:38<05:03,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  41%|████▏     | 169/409 [03:39<05:01,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  42%|████▏     | 170/409 [03:40<05:00,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  42%|████▏     | 171/409 [03:41<04:59,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  42%|████▏     | 172/409 [03:43<04:57,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  42%|████▏     | 173/409 [03:44<04:56,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  43%|████▎     | 174/409 [03:45<04:55,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  43%|████▎     | 175/409 [03:46<04:54,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  43%|████▎     | 176/409 [03:48<04:52,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  43%|████▎     | 177/409 [03:49<04:51,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  44%|████▎     | 178/409 [03:50<04:50,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  44%|████▍     | 179/409 [03:51<04:49,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  44%|████▍     | 180/409 [03:53<04:47,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  44%|████▍     | 181/409 [03:54<04:46,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  44%|████▍     | 182/409 [03:55<04:45,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  45%|████▍     | 183/409 [03:56<04:44,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  45%|████▍     | 184/409 [03:58<04:43,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  45%|████▌     | 185/409 [03:59<04:41,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  45%|████▌     | 186/409 [04:00<04:40,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  46%|████▌     | 187/409 [04:02<04:39,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  46%|████▌     | 188/409 [04:03<04:38,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  46%|████▌     | 189/409 [04:04<04:36,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  46%|████▋     | 190/409 [04:05<04:35,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  47%|████▋     | 191/409 [04:07<04:34,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  47%|████▋     | 192/409 [04:08<04:33,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  47%|████▋     | 193/409 [04:09<04:31,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  47%|████▋     | 194/409 [04:10<04:30,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  48%|████▊     | 195/409 [04:12<04:29,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  48%|████▊     | 196/409 [04:13<04:28,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  48%|████▊     | 197/409 [04:14<04:26,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  48%|████▊     | 198/409 [04:15<04:25,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  49%|████▊     | 199/409 [04:17<04:24,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  49%|████▉     | 200/409 [04:18<04:22,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  49%|████▉     | 201/409 [04:19<04:21,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  49%|████▉     | 202/409 [04:20<04:20,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  50%|████▉     | 203/409 [04:22<04:18,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  50%|████▉     | 204/409 [04:23<04:17,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  50%|█████     | 205/409 [04:24<04:16,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  50%|█████     | 206/409 [04:25<04:15,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  51%|█████     | 207/409 [04:27<04:14,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  51%|█████     | 208/409 [04:28<04:12,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  51%|█████     | 209/409 [04:29<04:11,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  51%|█████▏    | 210/409 [04:30<04:10,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  52%|█████▏    | 211/409 [04:32<04:08,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  52%|█████▏    | 212/409 [04:33<04:07,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  52%|█████▏    | 213/409 [04:34<04:06,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  52%|█████▏    | 214/409 [04:35<04:05,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  53%|█████▎    | 215/409 [04:37<04:04,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  53%|█████▎    | 216/409 [04:38<04:02,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  53%|█████▎    | 217/409 [04:39<04:01,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  53%|█████▎    | 218/409 [04:41<04:00,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  54%|█████▎    | 219/409 [04:42<03:58,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  54%|█████▍    | 220/409 [04:43<03:57,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  54%|█████▍    | 221/409 [04:44<03:56,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  54%|█████▍    | 222/409 [04:46<03:55,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  55%|█████▍    | 223/409 [04:47<03:53,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  55%|█████▍    | 224/409 [04:48<03:52,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  55%|█████▌    | 225/409 [04:49<03:51,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  55%|█████▌    | 226/409 [04:51<03:50,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  56%|█████▌    | 227/409 [04:52<03:48,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  56%|█████▌    | 228/409 [04:53<03:47,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  56%|█████▌    | 229/409 [04:54<03:46,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  56%|█████▌    | 230/409 [04:56<03:45,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  56%|█████▋    | 231/409 [04:57<03:43,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  57%|█████▋    | 232/409 [04:58<03:42,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  57%|█████▋    | 233/409 [04:59<03:41,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  57%|█████▋    | 234/409 [05:01<03:40,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  57%|█████▋    | 235/409 [05:02<03:38,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  58%|█████▊    | 236/409 [05:03<03:37,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  58%|█████▊    | 237/409 [05:04<03:36,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  58%|█████▊    | 238/409 [05:06<03:35,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  58%|█████▊    | 239/409 [05:07<03:34,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  59%|█████▊    | 240/409 [05:08<03:32,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  59%|█████▉    | 241/409 [05:09<03:31,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  59%|█████▉    | 242/409 [05:11<03:30,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  59%|█████▉    | 243/409 [05:12<03:28,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  60%|█████▉    | 244/409 [05:13<03:27,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  60%|█████▉    | 245/409 [05:14<03:26,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  60%|██████    | 246/409 [05:16<03:25,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  60%|██████    | 247/409 [05:17<03:23,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  61%|██████    | 248/409 [05:18<03:22,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  61%|██████    | 249/409 [05:20<03:21,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  61%|██████    | 250/409 [05:21<03:20,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  61%|██████▏   | 251/409 [05:22<03:18,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  62%|██████▏   | 252/409 [05:23<03:17,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  62%|██████▏   | 253/409 [05:25<03:16,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  62%|██████▏   | 254/409 [05:26<03:15,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  62%|██████▏   | 255/409 [05:27<03:13,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  63%|██████▎   | 256/409 [05:28<03:12,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  63%|██████▎   | 257/409 [05:30<03:11,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  63%|██████▎   | 258/409 [05:31<03:09,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  63%|██████▎   | 259/409 [05:32<03:08,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  64%|██████▎   | 260/409 [05:33<03:07,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  64%|██████▍   | 261/409 [05:35<03:06,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  64%|██████▍   | 262/409 [05:36<03:04,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  64%|██████▍   | 263/409 [05:37<03:03,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  65%|██████▍   | 264/409 [05:38<03:02,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  65%|██████▍   | 265/409 [05:40<03:01,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  65%|██████▌   | 266/409 [05:41<02:59,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  65%|██████▌   | 267/409 [05:42<02:58,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  66%|██████▌   | 268/409 [05:43<02:57,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  66%|██████▌   | 269/409 [05:45<02:56,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  66%|██████▌   | 270/409 [05:46<02:54,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  66%|██████▋   | 271/409 [05:47<02:53,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  67%|██████▋   | 272/409 [05:48<02:52,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  67%|██████▋   | 273/409 [05:50<02:50,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  67%|██████▋   | 274/409 [05:51<02:49,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  67%|██████▋   | 275/409 [05:52<02:48,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  67%|██████▋   | 276/409 [05:53<02:47,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  68%|██████▊   | 277/409 [05:55<02:45,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  68%|██████▊   | 278/409 [05:56<02:44,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  68%|██████▊   | 279/409 [05:57<02:43,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  68%|██████▊   | 280/409 [05:58<02:42,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  69%|██████▊   | 281/409 [06:00<02:40,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  69%|██████▉   | 282/409 [06:01<02:39,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  69%|██████▉   | 283/409 [06:02<02:38,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  69%|██████▉   | 284/409 [06:04<02:37,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  70%|██████▉   | 285/409 [06:05<02:35,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  70%|██████▉   | 286/409 [06:06<02:34,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  70%|███████   | 287/409 [06:07<02:33,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  70%|███████   | 288/409 [06:09<02:32,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  71%|███████   | 289/409 [06:10<02:30,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  71%|███████   | 290/409 [06:11<02:29,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  71%|███████   | 291/409 [06:12<02:28,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  71%|███████▏  | 292/409 [06:14<02:26,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  72%|███████▏  | 293/409 [06:15<02:25,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  72%|███████▏  | 294/409 [06:16<02:24,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  72%|███████▏  | 295/409 [06:17<02:23,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  72%|███████▏  | 296/409 [06:19<02:21,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  73%|███████▎  | 297/409 [06:20<02:20,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  73%|███████▎  | 298/409 [06:21<02:19,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  73%|███████▎  | 299/409 [06:22<02:18,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  73%|███████▎  | 300/409 [06:24<02:17,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  74%|███████▎  | 301/409 [06:25<02:15,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  74%|███████▍  | 302/409 [06:26<02:14,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  74%|███████▍  | 303/409 [06:27<02:13,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  74%|███████▍  | 304/409 [06:29<02:11,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  75%|███████▍  | 305/409 [06:30<02:10,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  75%|███████▍  | 306/409 [06:31<02:09,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  75%|███████▌  | 307/409 [06:32<02:08,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  75%|███████▌  | 308/409 [06:34<02:06,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  76%|███████▌  | 309/409 [06:35<02:05,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  76%|███████▌  | 310/409 [06:36<02:04,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  76%|███████▌  | 311/409 [06:37<02:03,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  76%|███████▋  | 312/409 [06:39<02:01,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  77%|███████▋  | 313/409 [06:40<02:00,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  77%|███████▋  | 314/409 [06:41<01:59,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  77%|███████▋  | 315/409 [06:43<01:58,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  77%|███████▋  | 316/409 [06:44<01:56,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  78%|███████▊  | 317/409 [06:45<01:55,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  78%|███████▊  | 318/409 [06:46<01:54,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  78%|███████▊  | 319/409 [06:48<01:53,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  78%|███████▊  | 320/409 [06:49<01:51,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+tqa_run_answers:  78%|███████▊  | 321/409 [06:50<01:50,  1.26s/it]The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.

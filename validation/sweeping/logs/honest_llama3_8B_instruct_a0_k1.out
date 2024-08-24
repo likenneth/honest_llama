@@ -1,0 +1,4 @@
+model_prefix: local_, model_name: llama3_8B_instruct, k: 1, alpha: 0
+Running fold 0
+Heads intervened:  [(12, 7)]
+ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET

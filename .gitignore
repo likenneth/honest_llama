@@ -167,3 +167,5 @@ validation/splits
 validation/sh*.sh
 validation/check_results.ipynb
 TruthfulQA
+validation/sweeping/logs
+get_activations/logs

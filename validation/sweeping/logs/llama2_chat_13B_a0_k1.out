@@ -1,0 +1,20 @@
+model_prefix: , model_name: llama2_chat_13B, k: 1, alpha: 0
+Running fold 0
+Heads intervened:  [(13, 0)]
+ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET
+FOLD 0
+Metric           GPT-info acc  GPT-judge acc  ...   CE Loss  KL wrt Orig
+Model                                         ...                       
+llama2_chat_13B      0.872861       0.613692  ...  2.252174          0.0
+
+[1 rows x 6 columns]
+Running fold 1
+Heads intervened:  [(13, 2)]
+ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET
+FOLD 1
+Metric           GPT-info acc  GPT-judge acc  ...   CE Loss  KL wrt Orig
+Model                                         ...                       
+llama2_chat_13B      0.870098       0.651961  ...  2.364888          0.0
+
+[1 rows x 6 columns]
+alpha: 0.0, heads: 1, True*Info Score: 0.5514950951311057, True Score: 0.6328263579270339, Info Score: 0.8714793374562539, MC1 Score: 0.35375916870415647, MC2 Score: 0.5331192384130066, CE Loss: 2.3085310953855513, KL wrt Original: 0.0
