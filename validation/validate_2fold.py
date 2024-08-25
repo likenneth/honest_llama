@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import argparse
 from datasets import load_dataset
-from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM, AutoConfig
 
 import sys
 sys.path.append('../')
@@ -16,28 +16,40 @@ from utils import alt_tqa_evaluate, flattened_idx_to_layer_head, layer_head_to_f
 import llama
 
 HF_NAMES = {
-    'llama_7B': 'baffo32/decapoda-research-llama-7B-hf', 
-    'honest_llama_7B': 'results_dump/llama_7B_seed_42_top_48_heads_alpha_15', 
-    'alpaca_7B': 'circulus/alpaca-7b', 
-    'honest_alpaca_7B': 'results_dump/alpaca_7B_seed_42_top_48_heads_alpha_15', 
-    'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
-    'honest_vicuna_7B': 'results_dump/vicuna_7B_seed_42_top_48_heads_alpha_15', 
-    'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf', 
-    'honest_llama2_chat_7B': 'results_dump/llama2_chat_7B_seed_42_top_48_heads_alpha_15', 
-    'llama2_chat_13B': 'meta-llama/Llama-2-13b-chat-hf', 
-    'honest_llama2_chat_13B': 'results_dump/llama2_chat_13B_seed_42_top_48_heads_alpha_15', 
-    'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf', 
-    'honest_llama2_chat_70B': 'results_dump/llama2_chat_70B_seed_42_top_48_heads_alpha_15', 
+    # Base models
+    # 'llama_7B': 'baffo32/decapoda-research-llama-7B-hf',
+    'llama_7B': 'huggyllama/llama-7b',
+    'alpaca_7B': 'circulus/alpaca-7b',
+    'vicuna_7B': 'AlekseyKorshuk/vicuna-7b',
+    'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf',
+    'llama2_chat_13B': 'meta-llama/Llama-2-13b-chat-hf',
+    'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf',
     'llama3_8B': 'meta-llama/Meta-Llama-3-8B',
     'llama3_8B_instruct': 'meta-llama/Meta-Llama-3-8B-Instruct',
     'llama3_70B': 'meta-llama/Meta-Llama-3-70B',
-    'llama3_70B_instruct': 'meta-llama/Meta-Llama-3-70B-Instruct',}
+    'llama3_70B_instruct': 'meta-llama/Meta-Llama-3-70B-Instruct',
+
+    # HF edited models (ITI baked-in)
+    'honest_llama_7B': 'jujipotle/honest_llama_7B', # Heads=48, alpha=15
+    # 'honest_llama2_chat_7B': 'likenneth/honest_llama2_chat_7B', # Heads=?, alpha=?
+    'honest_llama2_chat_7B': 'jujipotle/honest_llama2_chat_7B', # Heads=48, alpha=15
+    'honest_llama2_chat_13B': 'jujipotle/honest_llama2_chat_13B', # Heads=48, alpha=15
+    'honest_llama2_chat_70B': 'jujipotle/honest_llama2_chat_70B', # Heads=48, alpha=15
+    'honest_llama3_8B_instruct': 'jujipotle/honest_llama3_8B_instruct', # Heads=48, alpha=15
+    'honest_llama3_70B_instruct': 'jujipotle/honest_llama3_70B_instruct', # Heads=48, alpha=15
+    # Locally edited models (ITI baked-in)
+    'local_llama_7B': 'results_dump/edited_models_dump/llama_7B_seed_42_top_48_heads_alpha_15',
+    'local_llama2_chat_7B': 'results_dump/edited_models_dump/llama2_chat_7B_seed_42_top_48_heads_alpha_15',
+    'local_llama2_chat_13B': 'results_dump/edited_models_dump/llama2_chat_13B_seed_42_top_48_heads_alpha_15',
+    'local_llama2_chat_70B': 'results_dump/edited_models_dump/llama2_chat_70B_seed_42_top_48_heads_alpha_15',
+    'local_llama3_8B_instruct': 'results_dump/edited_models_dump/llama3_8B_instruct_seed_42_top_48_heads_alpha_15',
+    'local_llama3_70B_instruct': 'results_dump/edited_models_dump/llama3_70B_instruct_seed_42_top_48_heads_alpha_15'
+}
 
 def main(): 
     parser = argparse.ArgumentParser()
-    parser.add_argument("model_name", type=str, default='llama_7B', choices=HF_NAMES.keys(), help='model name')
-    parser.add_argument("--model_dir", type=str, default=None, help='local directory with model data')
-    parser.add_argument('--use_honest', action='store_true', help='use local editted version of the model', default=False)
+    parser.add_argument('--model_name', type=str, default='llama_7B', choices=HF_NAMES.keys(), help='model name')
+    parser.add_argument('--model_prefix', type=str, default='', help='prefix to model name')
     parser.add_argument('--dataset_name', type=str, default='tqa_mc2', help='feature bank for training probes')
     parser.add_argument('--activations_dataset', type=str, default='tqa_gen_end_q', help='feature bank for calculating std along direction')
     parser.add_argument('--num_heads', type=int, default=48, help='K, number of top heads to intervene on')
@@ -50,7 +62,8 @@ def main():
     parser.add_argument('--seed', type=int, default=42, help='seed')
     parser.add_argument('--judge_name', type=str, required=False)
     parser.add_argument('--info_name', type=str, required=False)
-    parser.add_argument('--instruction_prompt', default="default",type=str, required=False)
+    parser.add_argument('--instruction_prompt', default='default', help='instruction prompt for truthfulqa benchmarking, "default" or "informative"', type=str, required=False)
+
     args = parser.parse_args()
 
     # set seeds
@@ -85,14 +98,9 @@ def main():
     fold_idxs = np.array_split(np.arange(len(df)), args.num_fold)
 
     # create model
-    model_name = HF_NAMES["honest_" + args.model_name if args.use_honest else args.model_name]
-    MODEL = model_name if not args.model_dir else args.model_dir
-    if model == "baffo32/decapoda-research-llama-7B-hf":
-        tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
-        model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto")
-    else:
-        tokenizer = AutoTokenizer.from_pretrained(MODEL)
-        model = AutoModelForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+    model_name_or_path = HF_NAMES[args.model_prefix + args.model_name]
+    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(model_name_or_path, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True)
     # define number of layers and heads
     num_layers = model.config.num_hidden_layers
     num_heads = model.config.num_attention_heads
@@ -109,7 +117,6 @@ def main():
     tuning_labels = np.load(f"../features/{args.model_name}_{activations_dataset}_labels.npy")
 
     separated_head_wise_activations, separated_labels, idxs_to_split_at = get_separated_activations(labels, head_wise_activations)
-
     # run k-fold cross validation
     results = []
     for i in range(args.num_fold):
@@ -137,7 +144,7 @@ def main():
 
         print("Heads intervened: ", sorted(top_heads))
     
-        interventions = get_interventions_dict(MODEL, top_heads, probes, tuning_activations, num_heads, args.use_center_of_mass, args.use_random_dir, com_directions)
+        interventions = get_interventions_dict(top_heads, probes, tuning_activations, num_heads, args.use_center_of_mass, args.use_random_dir, com_directions)
 
         def lt_modulated_vector_add(head_output, layer_name, start_edit_location='lt'): 
             head_output = rearrange(head_output, 'b s (h d) -> b s h d', h=num_heads)
@@ -150,15 +157,13 @@ def main():
             head_output = rearrange(head_output, 'b s h d -> b s (h d)')
             return head_output
 
-        filename = f'{args.model_name}_seed_{args.seed}_top_{args.num_heads}_heads_alpha_{int(args.alpha)}_fold_{i}'
+        filename = f'{args.model_prefix}{args.model_name}_seed_{args.seed}_top_{args.num_heads}_heads_alpha_{int(args.alpha)}_fold_{i}'
 
         if args.use_center_of_mass:
             filename += '_com'
         if args.use_random_dir:
             filename += '_random'
-        if args.use_honest:
-            filename = 'honest_' + filename
-                    
+                                
         curr_fold_results = alt_tqa_evaluate(
             models={args.model_name: model},
             metric_names=['judge', 'info', 'mc'],
@@ -168,7 +173,7 @@ def main():
             device="cuda", 
             interventions=interventions, 
             intervention_fn=lt_modulated_vector_add, 
-            instruction_prompt='default',
+            instruction_prompt=args.instruction_prompt,
             judge_name=args.judge_name, 
             info_name=args.info_name
         )

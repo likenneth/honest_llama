@@ -162,8 +162,9 @@ cython_debug/
 features
 directions
 datasets
+TruthfulQA
 validation/results_dump
 validation/splits
-validation/sh*.sh
-validation/check_results.ipynb
-TruthfulQA
+validation/sweeping/logs
+get_activations/logs
+validation/debug_model_architecture.ipynb

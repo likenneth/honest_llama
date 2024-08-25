@@ -11,24 +11,29 @@ import pandas as pd
 import numpy as np
 import argparse
 from datasets import load_dataset
-
+from transformers import AutoTokenizer, AutoModelForCausalLM
 import sys
 sys.path.append('../')
 from utils import alt_tqa_evaluate, flattened_idx_to_layer_head, layer_head_to_flattened_idx, get_interventions_dict, get_top_heads, get_separated_activations, get_com_directions
 import llama
 
 HF_NAMES = {
-    'llama_7B': 'baffo32/decapoda-research-llama-7B-hf', 
+    # 'llama_7B': 'baffo32/decapoda-research-llama-7B-hf',
+    'llama_7B': 'huggyllama/llama-7b',
     'alpaca_7B': 'circulus/alpaca-7b', 
     'vicuna_7B': 'AlekseyKorshuk/vicuna-7b', 
     'llama2_chat_7B': 'meta-llama/Llama-2-7b-chat-hf',
+    'llama2_chat_13B': 'meta-llama/Llama-2-13b-chat-hf',
     'llama2_chat_70B': 'meta-llama/Llama-2-70b-chat-hf',
+    'llama3_8B': 'meta-llama/Meta-Llama-3-8B',
+    'llama3_8B_instruct': 'meta-llama/Meta-Llama-3-8B-Instruct',
+    'llama3_70B': 'meta-llama/Meta-Llama-3-70B',
+    'llama3_70B_instruct': 'meta-llama/Meta-Llama-3-70B-Instruct'
 }
-
 def main(): 
     parser = argparse.ArgumentParser()
-    parser.add_argument("model_name", type=str, default='llama_7B', choices=HF_NAMES.keys(), help='model name')
-    parser.add_argument("--model_dir", type=str, default=None, help='local directory with model data')
+    parser.add_argument("--model_name", type=str, default='llama_7B', choices=HF_NAMES.keys(), help='model name')
+    parser.add_argument("--model_prefix", type=str, default='', help='model prefix')
     parser.add_argument('--dataset_name', type=str, default='tqa_mc2', help='feature bank for training probes')
     parser.add_argument('--activations_dataset', type=str, default='tqa_gen_end_q', help='feature bank for calculating std along direction')
     parser.add_argument('--num_heads', type=int, default=48, help='K, number of top heads to intervene on')
@@ -69,10 +74,9 @@ def main():
     assert list(dataset['question']) == list(df["Question"])
 
     # create model
-    MODEL = HF_NAMES[args.model_name] if not args.model_dir else args.model_dir
-
-    tokenizer = llama.LlamaTokenizer.from_pretrained(MODEL)
-    model = llama.LlamaForCausalLM.from_pretrained(MODEL, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+    model_name = HF_NAMES[args.model_prefix + args.model_name]
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, device_map="auto")
 
     # define number of layers and heads
     num_layers = model.config.num_hidden_layers
@@ -115,14 +119,15 @@ def main():
             displacement[head_no] = args.alpha * std * head_vec
         device = model.model.layers[layer_no].self_attn.o_proj.weight.device.index
         displacement = torch.tensor(rearrange(displacement, 'h d -> (h d)'), device=device)
-        bias_tobe = F.linear(displacement.to(torch.float16), model.model.layers[layer_no].self_attn.o_proj.weight).to(device)
+        # bias_tobe = F.linear(displacement.to(torch.float16), model.model.layers[layer_no].self_attn.o_proj.weight).to(device)
+        bias_tobe = displacement.to(torch.float16)
         model.model.layers[layer_no].self_attn.o_proj.bias = torch.nn.parameter.Parameter(bias_tobe)
 
-    save_folder = f"results_dump/{args.model_name}_seed_{args.seed}_top_{args.num_heads}_heads_alpha_{int(args.alpha)}"
+    save_folder = f"results_dump/edited_models_dump/{args.model_name}_seed_{args.seed}_top_{args.num_heads}_heads_alpha_{int(args.alpha)}"
     if os.path.exists(save_folder):
       shutil.rmtree(save_folder)
     os.makedirs(save_folder)
-    model.config.oproj_bias = True
+    model.config.attention_bias = True
     model.save_pretrained(save_folder, safe_serialization=False, max_shard_size="10GB")
     tokenizer.save_pretrained(save_folder)
 

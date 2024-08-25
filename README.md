@@ -1,3 +1,8 @@
+### Update 08/24/2024
+With the release of LLaMA-3 models, I decided to replicate ITI on a suite of LLaMA models for easy comparison. I've recorded the results in `iti_replication_results.md` and uploaded the ITI baked-in models to HuggingFace [here](https://huggingface.co/collections/jujipotle/inference-time-intervention-iti-models-66ca15448347e21e8af6772e). Note that the ITI baked-in models and ITI applied to base models is not exactly a one-to-one comparison due to slight differences in when the activations are edited. The ITI baked-in models have the activation differences hardcoded into their attention biases. For more precise editing, consider only using the models' attention biases when processing tokens after the input prompt, to be more faithful to the original ITI method.
+
+-- Justin Ji @jujipotle
+
 ### Update 01/26/2024 :fire::fire:
 
 [Zen](https://github.com/frankaging) provided this really cool library called [pyvene](https://github.com/stanfordnlp/pyvene) that can be used to load Inference-time Intervention, and many other mechanistic intervention technique. Here is what he says:
@@ -83,14 +88,18 @@ conda activate iti
 python -m ipykernel install --user --name iti --display-name "iti"
 mkdir -p validation/results_dump/answer_dump
 mkdir -p validation/results_dump/summary_dump
-mkdir -p validation/splits
+mkdir -p validation/results_dump/edited_models_dump
+mkdir validation/splits
+mkdir validation/sweeping/logs
+mkdir get_activations/logs
 mkdir features
 git clone https://github.com/sylinrl/TruthfulQA.git
 ```
 
 ## TruthfulQA Evaluation
 
-Since we need to evaluate using TruthfulQA API, you should first export your OpenAI API key as an environment variable. Then install following [their instructions](https://github.com/sylinrl/TruthfulQA). 
+Since we need to evaluate using TruthfulQA API, you should first export your OpenAI API key as an environment variable. Then install following [their instructions](https://github.com/sylinrl/TruthfulQA) to the iti environment. Some pip packages installed via TruthfulQA are outdated; important ones to update are datasets, transformers, einops.
+
 
 Next, you need to obtain GPT-judge and GPT-info models by finetuning on the TruthfulQA dataset. Run finetune_gpt.ipynb using your own OpenAI API key.
 
@@ -98,17 +107,17 @@ If successful, you can find your GPT-judge and GPT-info model names with the Pyt
 
 ## Workflow
 
-(1) Get activations by running `bash get_activations.sh`. Layer-wise and head-wise activations are stored in the `features` folder. Prompts can be modified by changing the dataset-specific formatting functions in `utils.py`. 
+(1) Get activations by running `bash get_activations.sh` (or `sweep_acitvations.sh` to get activations for multiple models at once). Layer-wise and head-wise activations are stored in the `features` folder. Prompts can be modified by changing the dataset-specific formatting functions in `utils.py`. 
 
-(2) Get into `validation` folder, then, e.g., `CUDA_VISIBLE_DEVICES=0 python validate_2fold.py llama_7B --num_heads 48 --alpha 15 --device 0 --num_fold 2 --use_center_of_mass --instruction_prompt 'default' --judge_name <your GPT-judge name> --info_name <your GPT-info name>` to test inference-time intervention on LLaMA-7B. Read the code to learn about additional options.
+(2) Get into `validation` folder, then, e.g., `CUDA_VISIBLE_DEVICES=0 python validate_2fold.py --model_name llama_7B --num_heads 48 --alpha 15 --device 0 --num_fold 2 --use_center_of_mass --instruction_prompt default --judge_name <your GPT-judge name> --info_name <your GPT-info name>` to test inference-time intervention on LLaMA-7B. Read the code to learn about additional options. Or `CUDA_VISIBLE_DEVICES=0 python sweep_validate.py --model_name llama_7B --model_prefix honest_ --num_heads 1 --alpha 0...` to evaluate on an ITI baked-in LLaMA-7B model.
 
-(3) To create a modified model with ITI use `python edit_weight.py llama2_chat_7B` in the `validation` folder. `push_hf.py` can be used to upload this model to Huging Face.
+(3) To create a modified model with ITI use `python edit_weight.py --model_name llama2_chat_7B` in the `validation` folder. `push_hf.py` can be used to upload this model to Huging Face.
 
-**_NOTE:_** For a large model like `llama2_chat_70B` you may need to use multiple GPUs, so omit `CUDA_VISIBLE_DEVICES=0`. In addition, it may be beneficial to save the model locally first with `huggingface-cli download` and load with `--model_dir` options, availible in `get_activations.py`, `edit_weight.py` and `validate_2fold.py`.
+**_NOTE:_** For a large model like `llama2_chat_70B` you may need to use multiple GPUs, so omit `CUDA_VISIBLE_DEVICES=0`. In addition, it may be beneficial to save the model locally first with `huggingface-cli download` and load with `--model_prefix "local_"` options, availible in `get_activations.py`, `edit_weight.py` and `validate_2fold.py`.
 
 ### Results
 
-See `llama3_tuning.md` for example result runs on the newest generation of Llama models.
+See `iti_replication_results.md` for example result runs on LLaMA-1, LLaMA-2, and LLaMA-3 models.
 
 ## Additional datasets
 
