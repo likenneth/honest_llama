@@ -33,6 +33,7 @@ HF_NAMES = {
 def main(): 
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default='llama_7B', choices=HF_NAMES.keys(), help='model name')
+    parser.add_argument("--model_prefix", type=str, default='', help='model prefix')
     parser.add_argument('--dataset_name', type=str, default='tqa_mc2', help='feature bank for training probes')
     parser.add_argument('--activations_dataset', type=str, default='tqa_gen_end_q', help='feature bank for calculating std along direction')
     parser.add_argument('--num_heads', type=int, default=48, help='K, number of top heads to intervene on')
@@ -73,7 +74,7 @@ def main():
     assert list(dataset['question']) == list(df["Question"])
 
     # create model
-    model_name = HF_NAMES[args.model_name]
+    model_name = HF_NAMES[args.model_prefix + args.model_name]
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16, device_map="auto")
 
