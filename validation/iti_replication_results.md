@@ -1,4 +1,6 @@
-## Baseline
+As part of a summer research project, I replicated ITI on Llama 2 and 3 models. Below are my results:
+
+## Addressing Llama 3's "worse" performance on TruthfulQA compared to Llama 2
 Compared to Llama 1 and Llama 2 models, Llama 3 does not have a baseline metric on TruthfulQA reported by Meta. So, we calculate the baseline ourselves:
 
 On Llama3_8B, we get:
@@ -63,6 +65,32 @@ Modifying the TruthfulQA instruction prompt the same way for Llama3_8B, we get:
 
 For each variation of ITI, the True Score increases significantly from the baseline, while the Info Score decreases slightly (with more degradation with heavy intervention, as expected).
 
-I published the weights of ITI'd Llama3_8B and Llama3_70B with alpha: 20, heads: 80 to HuggingFace.
+In conclusion, I would recommend to people who wish to apply ITI to their model to measure the True Score and Info Score separately to see how much intervention needs to be applied to strike a good balance.
+
+## Uploading baked-in ITI models to HuggingFace
+I bake-in ITI interventions (with alpha=15, heads=48) into the following models: Llama_7B, Llama2_chat_7B, Llama2_chat_13B, Llama2_chat_70B, Llama3_8B_instruct, Llama3_70B_instruct. Notice that for some models, the baked-in ITI is stronger/weaker than applying ITI to the model directly. I hypothesize this is because the baked-in ITI indiscriminately applies ITI to every token of the input and the tokens generated after the prompt, while when we apply ITI directly, it is only applied to the tokens generated after the prompt. This may cause the baked-in ITI to have more of an influence on smaller models and less of an influence on larger models. I welcome further investigation into this phenonemon, please contact me if you have any ideas!
+
+For now, I'd recommend using ITI directly to obtain more consistent results. But the baked-in models are all available in the HuggingFace collection [here](https://huggingface.co/collections/jujipotle/inference-time-intervention-iti-models-66ca15448347e21e8af6772e) for your convenience!
+
+| Model                | Intervention | True*Info Score | True Score | Info Score | MC1 Score | MC2 Score | CE Loss | KL wrt Original |
+|----------------------|--------------|-----------------|------------|------------|-----------|-----------|---------|-----------------|
+| llama_7B             | Baseline     | 0.24            | 0.25       | 0.96       | 0.25      | 0.41      | 2.13    | 0.00            |
+| llama_7B             | ITI          | 0.33            | 0.35       | 0.94       | 0.28      | 0.45      | 2.28    | 0.17            |
+| llama_7B             | Baked-in     | 0.41            | 0.48       | 0.86       | 0.34      | 0.52      | 2.28    | 0.00            |
+| llama2_chat_7B       | Baseline     | 0.51            | 0.64       | 0.79       | 0.34      | 0.51      | 2.47    | 0.00            |
+| llama2_chat_7B       | ITI          | 0.53            | 0.66       | 0.80       | 0.35      | 0.52      | 2.51    | 0.06            |
+| llama2_chat_7B       | Baked-in     | 0.50            | 0.64       | 0.78       | 0.33      | 0.51      | 2.46    | 0.00            |
+| llama2_chat_13B      | Baseline     | 0.55            | 0.63       | 0.87       | 0.35      | 0.53      | 2.31    | 0.00            |
+| llama2_chat_13B      | ITI          | 0.59            | 0.67       | 0.89       | 0.37      | 0.56      | 2.33    | 0.13            |
+| llama2_chat_13B      | Baked-in     | 0.50            | 0.60       | 0.84       | 0.37      | 0.55      | 2.32    | 0.00            |
+| llama2_chat_70B      | Baseline     | 0.45            | 0.63       | 0.71       | 0.37      | 0.56      | 2.19    | 0.00            |
+| llama2_chat_70B      | ITI          | 0.46            | 0.62       | 0.74       | 0.38      | 0.57      | 2.18    | 0.01            |
+| llama2_chat_70B      | Baked-in     | 0.47            | 0.62       | 0.75       | 0.38      | 0.57      | 2.19    | 0.00            |
+| llama3_8B_instruct   | Baseline     | 0.54            | 0.64       | 0.84       | 0.39      | 0.59      | 2.78    | 0.00            |
+| llama3_8B_instruct   | ITI          | 0.62            | 0.71       | 0.87       | 0.39      | 0.59      | 2.87    | 0.30            |
+| llama3_8B_instruct   | Baked-in     | 0.55            | 0.76       | 0.72       | 0.38      | 0.58      | 2.85    | 0.00            |
+| llama3_70B_instruct  | Baseline     | 0.32            | 0.81       | 0.40       | 0.44      | 0.64      | 2.49    | 0.00            |
+| llama3_70B_instruct  | ITI          | 0.38            | 0.73       | 0.53       | 0.45      | 0.66      | 2.48    | 0.03            |
+| llama3_70B_instruct  | Baked-in     | 0.38            | 0.67       | 0.57       | 0.42      | 0.63      | 2.48    | 0.00            |
 
 -- Results contributed by Justin Ji @jujipotle.

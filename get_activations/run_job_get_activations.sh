@@ -1,20 +1,20 @@
 #!/bin/bash
 #SBATCH --job-name=get_activations
-#SBATCH --account=kempner_undergrads
+#SBATCH --account=???
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --gpus-per-node=2
 #SBATCH --cpus-per-task=4
 #SBATCH --time=0-01:00:00
 #SBATCH --mem=200GB
-#SBATCH --partition=kempner_h100
+#SBATCH --partition==???
 
 module load python
 module load gcc
 module load cuda
 eval "$(conda shell.bash hook)"
-conda activate iti_h100_clean
-cd /n/holylfs06/LABS/kempner_undergrads/Users/jujipotle/honest_llama/get_activations
+conda activate iti
+cd /path/to/honest_llama/get_activations
 
 # Parse command-line arguments
 model_name=

@@ -1,9 +1,9 @@
-log_path="/n/holylfs06/LABS/kempner_undergrads/Users/jujipotle/honest_llama/validation/sweeping/logs/sweep_sequential.log"
+log_path="/path/to/honest_llama/validation/sweeping/logs/sweep_sequential.log"
 model_name="llama_7B"
 model_prefix=""
 instruction_prompt="default"
-judge_name="ft:davinci-002:harvard-university:truthful:9fudyDuw"
-info_name="ft:davinci-002:harvard-university:informational:9fcfwUfc"
+judge_name="???"
+info_name="???"
 
 for alpha in 10 15 20; do
     for K in 48 64 80; do
