@@ -118,7 +118,9 @@ def main():
             displacement[head_no] = args.alpha * std * head_vec
         device = model.model.layers[layer_no].self_attn.o_proj.weight.device.index
         displacement = torch.tensor(rearrange(displacement, 'h d -> (h d)'), device=device)
-        model.model.layers[layer_no].self_attn.o_proj.bias = torch.nn.parameter.Parameter(displacement.to(torch.float16))
+        # bias_tobe = F.linear(displacement.to(torch.float16), model.model.layers[layer_no].self_attn.o_proj.weight).to(device)
+        bias_tobe = displacement.to(torch.float16)
+        model.model.layers[layer_no].self_attn.o_proj.bias = torch.nn.parameter.Parameter(bias_tobe)
 
     save_folder = f"results_dump/edited_models_dump/{args.model_name}_seed_{args.seed}_top_{args.num_heads}_heads_alpha_{int(args.alpha)}"
     if os.path.exists(save_folder):
