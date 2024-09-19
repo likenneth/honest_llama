@@ -45,7 +45,7 @@ done
 echo "model_prefix: ${model_prefix}, model_name: ${model_name}, k: ${k}, alpha: ${alpha}, seed: ${seed}"
 
 if [ -z "$model_prefix" ]; then
-    python validate_2fold.py --model_name $model_name --num_heads $k --alpha $alpha --instruction_prompt $instruction_prompt --device 0 --num_fold 2 --use_center_of_mass --judge_name $judge_name --info_name $info_name --seed $seed
+    python pv_validate_2fold.py --model_name $model_name --num_heads $k --alpha $alpha --instruction_prompt $instruction_prompt --device 0 --num_fold 2 --use_center_of_mass --judge_name $judge_name --info_name $info_name --seed $seed
 else
-    python validate_2fold.py --model_name $model_name --model_prefix $model_prefix --num_heads $k --alpha $alpha --instruction_prompt $instruction_prompt --device 0 --num_fold 2 --use_center_of_mass --judge_name $judge_name --info_name $info_name --seed $seed
+    python pv_validate_2fold.py --model_name $model_name --model_prefix $model_prefix --num_heads $k --alpha $alpha --instruction_prompt $instruction_prompt --device 0 --num_fold 2 --use_center_of_mass --judge_name $judge_name --info_name $info_name --seed $seed
 fi

@@ -12,8 +12,13 @@ from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM, AutoCon
 
 import sys
 sys.path.append('../')
-from utils import alt_tqa_evaluate, flattened_idx_to_layer_head, layer_head_to_flattened_idx, get_interventions_dict, get_top_heads, get_separated_activations, get_com_directions
+# from utils import alt_tqa_evaluate, flattened_idx_to_layer_head, layer_head_to_flattened_idx, get_interventions_dict, get_top_heads, get_separated_activations, get_com_directions
 import llama
+
+# Specific pyvene imports
+from pv_utils import alt_tqa_evaluate, flattened_idx_to_layer_head, layer_head_to_flattened_idx, get_interventions_dict, get_top_heads, get_separated_activations, get_com_directions
+from interveners import wrapper, Collector, ITI_Intervener
+import pyvene as pv
 
 HF_NAMES = {
     # Base models
@@ -100,9 +105,9 @@ def main():
     # create model
     model_name_or_path = HF_NAMES[args.model_prefix + args.model_name]
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, trust_remote_code=True)
-    # model = AutoModelForCausalLM.from_pretrained(model_name_or_path, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(model_name_or_path, low_cpu_mem_usage = True, torch_dtype=torch.float16, device_map="auto", trust_remote_code=True)
     # tokenizer = llama.LlamaTokenizer.from_pretrained(model_name_or_path)
-    model = llama.LlamaForCausalLM.from_pretrained(model_name_or_path, torch_dtype=torch.float16, device_map="auto")
+    # model = llama.LlamaForCausalLM.from_pretrained(model_name_or_path, torch_dtype=torch.float16, device_map="auto")
     if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
     model.generation_config.pad_token_id = tokenizer.pad_token_id
@@ -110,17 +115,19 @@ def main():
     # define number of layers and heads
     num_layers = model.config.num_hidden_layers
     num_heads = model.config.num_attention_heads
+    hidden_size = model.config.hidden_size
+    head_dim = hidden_size // num_heads
 
     # load activations 
-    head_wise_activations = np.load(f"../features/head_out_{args.model_name}_{args.dataset_name}_head_wise.npy")
-    labels = np.load(f"../features/head_out_{args.model_name}_{args.dataset_name}_labels.npy")
+    head_wise_activations = np.load(f"../features/pyvene_v_proj_{args.model_name}_{args.dataset_name}_head_wise.npy")
+    labels = np.load(f"../features/pyvene_v_proj_{args.model_name}_{args.dataset_name}_labels.npy")
     head_wise_activations = rearrange(head_wise_activations, 'b l (h d) -> b l h d', h = num_heads)
 
     # tuning dataset: no labels used, just to get std of activations along the direction
     activations_dataset = args.dataset_name if args.activations_dataset is None else args.activations_dataset
-    tuning_activations = np.load(f"../features/head_out_{args.model_name}_{activations_dataset}_head_wise.npy")
+    tuning_activations = np.load(f"../features/pyvene_v_proj_{args.model_name}_{activations_dataset}_head_wise.npy")
     tuning_activations = rearrange(tuning_activations, 'b l (h d) -> b l h d', h = num_heads)
-    tuning_labels = np.load(f"../features/head_out_{args.model_name}_{activations_dataset}_labels.npy")
+    tuning_labels = np.load(f"../features/pyvene_v_proj_{args.model_name}_{activations_dataset}_labels.npy")
 
     separated_head_wise_activations, separated_labels, idxs_to_split_at = get_separated_activations(labels, head_wise_activations)
     # run k-fold cross validation
@@ -149,19 +156,33 @@ def main():
         top_heads, probes = get_top_heads(train_set_idxs, val_set_idxs, separated_head_wise_activations, separated_labels, num_layers, num_heads, args.seed, args.num_heads, args.use_random_dir)
 
         print("Heads intervened: ", sorted(top_heads))
-    
-        interventions = get_interventions_dict(top_heads, probes, tuning_activations, num_heads, args.use_center_of_mass, args.use_random_dir, com_directions)
 
-        def lt_modulated_vector_add(head_output, layer_name, start_edit_location='lt'): 
-            head_output = rearrange(head_output, 'b s (h d) -> b s h d', h=num_heads)
-            for head, direction, proj_val_std in interventions[layer_name]:
-                direction_to_add = torch.tensor(direction).to(head_output.device.index)
-                if start_edit_location == 'lt': 
-                    head_output[:, -1, head, :] += args.alpha * proj_val_std * direction_to_add
-                else: 
-                    head_output[:, start_edit_location:, head, :] += args.alpha * proj_val_std * direction_to_add
-            head_output = rearrange(head_output, 'b s h d -> b s (h d)')
-            return head_output
+        interveners = []
+        pv_config = []
+        top_heads_by_layer = {}
+        for layer, head, in top_heads:
+            if layer not in top_heads_by_layer:
+                top_heads_by_layer[layer] = []
+            top_heads_by_layer[layer].append(head)
+        for layer, heads in top_heads_by_layer.items():
+            direction = np.zeros(head_dim * num_heads)
+            for head in heads:
+                dir = com_directions[layer_head_to_flattened_idx(layer, head, num_heads)]
+                dir = dir / np.linalg.norm(dir)
+                # dir = dir / torch.norm(dir)
+                activations = tuning_activations[:,layer,head,:] # batch x 128
+                proj_vals = activations @ dir.T
+                proj_val_std = np.std(proj_vals)
+                direction[head * head_dim: (head + 1) * head_dim] = dir * proj_val_std
+
+            intervener = ITI_Intervener(direction, args.alpha) #head=-1 to collect all head activations, multiplier doens't matter
+            interveners.append(intervener)
+            pv_config.append({
+                # "component": f"model.layers[{layer}].self_attn.o_proj.input",
+                "component": f"model.layers[{layer}].self_attn.v_proj.output",
+                "intervention": wrapper(intervener),
+            })
+        intervened_model = pv.IntervenableModel(pv_config, model)
 
         filename = f'{args.model_prefix}{args.model_name}_seed_{args.seed}_top_{args.num_heads}_heads_alpha_{int(args.alpha)}_fold_{i}'
 
@@ -171,17 +192,19 @@ def main():
             filename += '_random'
                                 
         curr_fold_results = alt_tqa_evaluate(
-            models={args.model_name: model},
+            models={args.model_name: intervened_model},
             metric_names=['judge', 'info', 'mc'],
             input_path=f'splits/fold_{i}_test_seed_{args.seed}.csv',
             output_path=f'results_dump/answer_dump/{filename}.csv',
             summary_path=f'results_dump/summary_dump/{filename}.csv',
             device="cuda", 
-            interventions=interventions, 
-            intervention_fn=lt_modulated_vector_add, 
+            interventions=None, 
+            intervention_fn=None, 
             instruction_prompt=args.instruction_prompt,
             judge_name=args.judge_name, 
-            info_name=args.info_name
+            info_name=args.info_name,
+            separate_kl_device='cuda',
+            orig_model=model
         )
 
         print(f"FOLD {i}")
