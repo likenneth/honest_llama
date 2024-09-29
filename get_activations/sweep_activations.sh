@@ -4,7 +4,7 @@ log_path="/path/to/honest_llama/get_activations/logs"
 
 cd /path/to/honest_llama/get_activations
 
-# model_names=("llama_7B" "llama2_chat_7B" "llama2_chat_13B" "llama2_chat_70B" "llama3_8B_instruct" "llama3_70B_instruct")
+model_names=("llama2_chat_7B" "llama2_chat_13B" "llama3_8B_instruct")
 # Loop through model names
 for i in "${!model_names[@]}"; do
     model_name=${model_names[$i]}

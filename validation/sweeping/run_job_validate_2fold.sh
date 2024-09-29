@@ -13,7 +13,7 @@ module load python
 module load gcc
 module load cuda
 eval "$(conda shell.bash hook)"
-conda activate iti_h100_clean
+conda activate ???
 cd /path/to/honest_llama/validation
 
 model_name=""

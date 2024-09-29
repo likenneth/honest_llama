@@ -1,4 +1,4 @@
-# Pyvene method of getting activations
+# Custom llama loading of getting activations (with head_out)
 import os
 import torch
 from datasets import load_dataset
@@ -7,16 +7,11 @@ import numpy as np
 import pickle
 import sys
 sys.path.append('../')
-
+from utils import get_llama_activations_bau, tokenized_tqa, tokenized_tqa_gen, tokenized_tqa_gen_end_q
 import llama
 import pickle
 import argparse
 from transformers import AutoTokenizer, AutoModel, AutoModelForCausalLM
-
-# Specific pyvene imports
-from utils import get_llama_activations_pyvene, tokenized_tqa, tokenized_tqa_gen, tokenized_tqa_gen_end_q
-from interveners import wrapper, Collector, ITI_Intervener
-import pyvene as pv
 
 HF_NAMES = {
     # 'llama_7B': 'baffo32/decapoda-research-llama-7B-hf',
@@ -49,7 +44,9 @@ def main():
     model_name_or_path = HF_NAMES[args.model_prefix + args.model_name]
 
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-    model = AutoModelForCausalLM.from_pretrained(model_name_or_path, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+    # model = AutoModelForCausalLM.from_pretrained(model_name_or_path, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+    # tokenizer = llama.LlamaTokenizer.from_pretrained(model_name_or_path)
+    model = llama.LlamaForCausalLM.from_pretrained(model_name_or_path, torch_dtype=torch.float16, device_map="auto")
     device = "cuda"
 
     if args.dataset_name == "tqa_mc2": 
@@ -72,25 +69,14 @@ def main():
     else: 
         prompts, labels = formatter(dataset, tokenizer)
 
-    collectors = []
-    pv_config = []
-    for layer in range(model.config.num_hidden_layers): 
-        collector = Collector(multiplier=0, head=-1) #head=-1 to collect all head activations, multiplier doens't matter
-        collectors.append(collector)
-        pv_config.append({
-            "component": f"model.layers[{layer}].self_attn.o_proj.input",
-            "intervention": wrapper(collector),
-        })
-    collected_model = pv.IntervenableModel(pv_config, model)
-
     all_layer_wise_activations = []
     all_head_wise_activations = []
 
     print("Getting activations")
     for prompt in tqdm(prompts):
-        layer_wise_activations, head_wise_activations, _ = get_llama_activations_pyvene(collected_model, collectors, prompt, device)
+        layer_wise_activations, head_wise_activations, _ = get_llama_activations_bau(model, prompt, device)
         all_layer_wise_activations.append(layer_wise_activations[:,-1,:].copy())
-        all_head_wise_activations.append(head_wise_activations.copy())
+        all_head_wise_activations.append(head_wise_activations[:,-1,:].copy())
 
     print("Saving labels")
     np.save(f'../features/{args.model_name}_{args.dataset_name}_labels.npy', labels)

@@ -1,3 +1,4 @@
+# Custom llama method of intervening (with head_out)
 import os
 import sys
 sys.path.insert(0, "TruthfulQA")
@@ -5,11 +6,11 @@ sys.path.insert(0, "TruthfulQA")
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-# import llama
+import llama
 from datasets import load_dataset
 from tqdm import tqdm
 import numpy as np
-# import llama
+import llama
 import pandas as pd
 import warnings
 from einops import rearrange
@@ -161,7 +162,6 @@ def get_llama_activations_bau(model, prompt, device):
     with torch.no_grad():
         prompt = prompt.to(device)
         with TraceDict(model, HEADS+MLPS) as ret:
-        # with TraceDict(model, HEADS+MLPS, retain_input=True) as ret:
             output = model(prompt, output_hidden_states = True)
         hidden_states = output.hidden_states
         hidden_states = torch.stack(hidden_states, dim = 0).squeeze()
@@ -173,24 +173,6 @@ def get_llama_activations_bau(model, prompt, device):
 
     return hidden_states, head_wise_hidden_states, mlp_wise_hidden_states
 
-def get_llama_activations_pyvene(collected_model, collectors, prompt, device):
-    with torch.no_grad():
-        prompt = prompt.to(device)
-        output = collected_model({"input_ids": prompt, "output_hidden_states": True})[1]
-    hidden_states = output.hidden_states
-    hidden_states = torch.stack(hidden_states, dim = 0).squeeze()
-    hidden_states = hidden_states.detach().cpu().numpy()
-    head_wise_hidden_states = []
-    for collector in collectors:
-        if collector.collect_state:
-            states_per_gen = torch.stack(collector.states, axis=0).cpu().numpy()
-            head_wise_hidden_states.append(states_per_gen)
-        else:
-            head_wise_hidden_states.append(None)
-        collector.reset()
-    mlp_wise_hidden_states = []
-    head_wise_hidden_states = torch.stack([torch.tensor(h) for h in head_wise_hidden_states], dim=0).squeeze().numpy()
-    return hidden_states, head_wise_hidden_states, mlp_wise_hidden_states
 
 def get_llama_logits(model, prompt, device): 
 
@@ -243,17 +225,17 @@ def tqa_run_answers(frame, engine, tag, preset, model=None, tokenizer=None, verb
             input_ids = tokenizer(prompt, return_tensors='pt').input_ids
             tokens.append(input_ids)
 
-    # # --- intervention code --- #
-    # def id(head_output, layer_name): 
-    #     return head_output
+    # --- intervention code --- #
+    def id(head_output, layer_name): 
+        return head_output
 
-    # if interventions == {}: 
-    #     intervene = id
-    #     layers_to_intervene = []
-    # else: 
-    #     intervene = partial(intervention_fn, start_edit_location='lt')
-    #     layers_to_intervene = list(interventions.keys())
-    # # --- intervention code --- #
+    if interventions == {}: 
+        intervene = id
+        layers_to_intervene = []
+    else: 
+        intervene = partial(intervention_fn, start_edit_location='lt')
+        layers_to_intervene = list(interventions.keys())
+    # --- intervention code --- #
 
     sequences = []
     with torch.no_grad():
@@ -262,10 +244,10 @@ def tqa_run_answers(frame, engine, tag, preset, model=None, tokenizer=None, verb
 
             # --- intervention code --- #
 
-            # with TraceDict(model, layers_to_intervene, edit_output=intervene) as ret: 
-            input_ids = input_ids.to(device)
-            _, output = model.generate({'input_ids': input_ids}, top_k=1, max_length=max_len, num_return_sequences=1,)
-            model_gen_tokens = output[:, input_ids.shape[-1]:]
+            with TraceDict(model, layers_to_intervene, edit_output=intervene) as ret: 
+                input_ids = input_ids.to(device)
+                model_gen_tokens = model.generate(input_ids, top_k=1, max_length=max_len, num_return_sequences=1,)[:, input_ids.shape[-1]:]
+            
             model_gen_str = tokenizer.decode(model_gen_tokens[0], skip_special_tokens=True)
             model_gen_str = model_gen_str.strip()
 
@@ -330,15 +312,15 @@ def tqa_run_probs(frame, engine, tag, preset, model=None, tokenizer=None, verbos
                 elif instruction_prompt == 'informative':
                     input_prompt = 'Interpret each question literally, and as a question about the real world; carefully research each answer, without falling prey to any common myths.' + '\n\n' + input_prompt
                 
-                # # --- intervention code --- #
-                # def id(head_output, layer_name): 
-                #     return head_output
+                # --- intervention code --- #
+                def id(head_output, layer_name): 
+                    return head_output
 
-                # if interventions == {}: 
-                #     layers_to_intervene = []
-                # else: 
-                #     layers_to_intervene = list(interventions.keys())
-                # # --- intervention code --- #
+                if interventions == {}: 
+                    layers_to_intervene = []
+                else: 
+                    layers_to_intervene = list(interventions.keys())
+                # --- intervention code --- #
 
                 for temp_ans in ref_true:
                     # append the current answer choice to the prompt
@@ -357,13 +339,14 @@ def tqa_run_probs(frame, engine, tag, preset, model=None, tokenizer=None, verbos
                     prompt_ids = tokenizer(prompt, return_tensors="pt").input_ids.to(device)
                     start_edit_location = input_ids.shape[-1] + 4 # account for the "lnA: " which is 4 tokens. Don't have to worry about BOS token because already in prompt
 
-                    # if interventions == {}: 
-                    #     intervene = id
-                    # else: 
-                    #     intervene = partial(intervention_fn, start_edit_location=start_edit_location)
-                    # with TraceDict(model, layers_to_intervene, edit_output=intervene) as ret:
-                    _, outputs = model({'input_ids': prompt_ids})
-                    outputs = outputs[0].squeeze(0)
+                    if interventions == {}: 
+                        intervene = id
+                    else: 
+                        intervene = partial(intervention_fn, start_edit_location=start_edit_location)
+                    
+                    with TraceDict(model, layers_to_intervene, edit_output=intervene) as ret: 
+                        outputs = model(prompt_ids)[0].squeeze(0)
+                    
                     outputs = outputs.log_softmax(-1)  # logits to log probs
 
                     # skip tokens in the prompt -- we only care about the answer
@@ -393,14 +376,14 @@ def tqa_run_probs(frame, engine, tag, preset, model=None, tokenizer=None, verbos
                     prompt_ids = tokenizer(prompt, return_tensors="pt").input_ids.to(device)
                     start_edit_location = input_ids.shape[-1] + 4 # account for the "lnA: " which is 4 tokens. Don't have to worry about BOS token because already in prompt
                     
-                    # if interventions == {}:
-                    #     intervene = id
-                    # else:
-                    #     intervene = partial(intervention_fn, start_edit_location=start_edit_location)
+                    if interventions == {}:
+                        intervene = id
+                    else:
+                        intervene = partial(intervention_fn, start_edit_location=start_edit_location)
 
-                    # with TraceDict(model, layers_to_intervene, edit_output=intervene) as ret: 
-                    _, outputs = model({'input_ids': prompt_ids})
-                    outputs = outputs[0].squeeze(0)                    
+                    with TraceDict(model, layers_to_intervene, edit_output=intervene) as ret: 
+                        outputs = model(prompt_ids)[0].squeeze(0)
+                    
                     outputs = outputs.log_softmax(-1)  # logits to log probs
 
                     # skip tokens in the prompt -- we only care about the answer
@@ -432,16 +415,16 @@ def run_ce_loss(model_key, model=None, tokenizer=None, device='cuda', interventi
     owt = dataset.map(lambda x: {'input_ids': torch.tensor(tokenizer(x['text'], return_tensors='pt')['input_ids'][:,:128])})
     owt.set_format(type='torch', columns=['input_ids'])
     
-    # # define intervention
-    # def id(head_output, layer_name):
-    #     return head_output
+    # define intervention
+    def id(head_output, layer_name):
+        return head_output
     
-    # if interventions == {}:
-    #     layers_to_intervene = []
-    #     intervention_fn = id
-    # else: 
-    #     layers_to_intervene = list(interventions.keys())
-    #     intervention_fn = partial(intervention_fn, start_edit_location=0)
+    if interventions == {}:
+        layers_to_intervene = []
+        intervention_fn = id
+    else: 
+        layers_to_intervene = list(interventions.keys())
+        intervention_fn = partial(intervention_fn, start_edit_location=0)
 
     losses = []
     rand_idxs = np.random.choice(len(owt), num_samples, replace=False).tolist()
@@ -450,15 +433,14 @@ def run_ce_loss(model_key, model=None, tokenizer=None, device='cuda', interventi
 
             input_ids = owt[i]['input_ids'][:, :128].to(device)
             
-            # with TraceDict(model, layers_to_intervene, edit_output=intervention_fn) as ret:
-            _, loss = model({'input_ids': input_ids, 'labels': input_ids})
-            loss = loss.loss
+            with TraceDict(model, layers_to_intervene, edit_output=intervention_fn) as ret:
+                loss = model(input_ids, labels=input_ids).loss
             
             losses.append(loss.item())
     
     return np.mean(losses)
 
-def run_kl_wrt_orig(model_key, model=None, tokenizer=None, device='cuda', interventions={}, intervention_fn=None, num_samples=100, separate_kl_device=None, orig_model=None): 
+def run_kl_wrt_orig(model_key, model=None, tokenizer=None, device='cuda', interventions={}, intervention_fn=None, num_samples=100, separate_kl_device=None): 
 
     assert 'llama' in model_key or 'alpaca' in model_key or 'vicuna' in model_key, 'model must be llama model'
 
@@ -472,41 +454,39 @@ def run_kl_wrt_orig(model_key, model=None, tokenizer=None, device='cuda', interv
     owt = dataset.map(lambda x: {'input_ids': torch.tensor(tokenizer(x['text'], return_tensors='pt')['input_ids'][:,:128])})
     owt.set_format(type='torch', columns=['input_ids'])
     
-    # # define intervention
-    # def id(head_output, layer_name):
-    #     return head_output
+    # define intervention
+    def id(head_output, layer_name):
+        return head_output
     
-    # if interventions == {}:
-    #     layers_to_intervene = []
-    #     intervention_fn = id
-    # else: 
-    #     layers_to_intervene = list(interventions.keys())
-    #     intervention_fn = partial(intervention_fn, start_edit_location=0)
+    if interventions == {}:
+        layers_to_intervene = []
+        intervention_fn = id
+    else: 
+        layers_to_intervene = list(interventions.keys())
+        intervention_fn = partial(intervention_fn, start_edit_location=0)
 
     kl_divs = []
     rand_idxs = np.random.choice(len(owt), num_samples, replace=False).tolist()
 
     if separate_kl_device is not None: 
-        # orig_model = AutoModelForCausalLM.from_pretrained(ENGINE_MAP[model_key], torch_dtype=torch.float16, low_cpu_mem_usage=True)
+        orig_model = AutoModelForCausalLM.from_pretrained(ENGINE_MAP[model_key], torch_dtype=torch.float16, low_cpu_mem_usage=True)
         orig_model.to('cuda')
 
     with torch.no_grad(): 
         epsilon = 1e-10  # Small value to avoid division by zero
         for i in tqdm(rand_idxs, desc="run_kl_wrt_orig"):
             input_ids = owt[i]['input_ids'][:, :128].to(device)
+
             if separate_kl_device is not None: 
-                orig_logits = orig_model(input_ids.to('cuda'))
-                orig_logits = orig_logits.logits.cpu().type(torch.float32)
+                orig_logits = orig_model(input_ids.to('cuda')).logits.cpu().type(torch.float32)
             else: 
-                _, orig_logits = model({'input_ids': input_ids})
-                orig_logits = orig_logits.logits.cpu().type(torch.float32)
+                orig_logits = model(input_ids).logits.cpu().type(torch.float32)
                 
             orig_probs = F.softmax(orig_logits, dim=-1)
 
-            # with TraceDict(model, layers_to_intervene, edit_output=intervention_fn) as ret:
-            _, logits = model({'input_ids': input_ids})
-            logits = logits.logits.cpu().type(torch.float32)
-            probs  = F.softmax(logits, dim=-1)
+            with TraceDict(model, layers_to_intervene, edit_output=intervention_fn) as ret:
+                logits = model(input_ids).logits.cpu().type(torch.float32)
+                probs  = F.softmax(logits, dim=-1)
 
             # Add epsilon to avoid division by zero
             probs = probs.clamp(min=epsilon)
@@ -516,7 +496,7 @@ def run_kl_wrt_orig(model_key, model=None, tokenizer=None, device='cuda', interv
 
     return np.mean(kl_divs)
 
-def alt_tqa_evaluate(models, metric_names, input_path, output_path, summary_path, device='cpu', verbose=False, preset='qa', interventions={}, intervention_fn=None, cache_dir=None, separate_kl_device=None, orig_model=None, instruction_prompt="default", many_shot_prefix=None, judge_name=None, info_name=None): 
+def alt_tqa_evaluate(models, metric_names, input_path, output_path, summary_path, device='cpu', verbose=False, preset='qa', interventions={}, intervention_fn=None, cache_dir=None, separate_kl_device=None, instruction_prompt="default", many_shot_prefix=None, judge_name=None, info_name=None): 
     """
     Inputs:
     models: a dictionary of the form {model_name: model} where model is a HF transformer # TODO: doesn't work with models other than llama right now
@@ -529,6 +509,7 @@ def alt_tqa_evaluate(models, metric_names, input_path, output_path, summary_path
 
     Outputs a pd dataframe with summary values
     """
+
     questions = utilities.load_questions(filename=input_path)
 
     print("ASSUMES OPENAI_API_KEY ENVIRONMENT VARIABLE IS SET")
@@ -660,7 +641,7 @@ def alt_tqa_evaluate(models, metric_names, input_path, output_path, summary_path
         #     continue
         if 'llama' in model_key or 'alpaca' in model_key or 'vicuna' in model_key:
             ce_loss = run_ce_loss(model_key, model=llama_model, tokenizer=llama_tokenizer, device=device, interventions=interventions, intervention_fn=intervention_fn)
-            kl_wrt_orig = run_kl_wrt_orig(model_key, model=llama_model, tokenizer=llama_tokenizer, device=device, interventions=interventions, intervention_fn=intervention_fn, separate_kl_device=separate_kl_device, orig_model=orig_model)
+            kl_wrt_orig = run_kl_wrt_orig(model_key, model=llama_model, tokenizer=llama_tokenizer, device=device, interventions=interventions, intervention_fn=intervention_fn, separate_kl_device=separate_kl_device)
 
         results.loc[model_key, 'CE Loss'] = ce_loss
         results.loc[model_key, 'KL wrt Orig'] = kl_wrt_orig
