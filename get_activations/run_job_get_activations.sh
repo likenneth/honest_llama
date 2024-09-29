@@ -3,10 +3,10 @@
 #SBATCH --account=???
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --gpus-per-node=2
+#SBATCH --gpus-per-node=1
 #SBATCH --cpus-per-task=4
 #SBATCH --time=0-01:00:00
-#SBATCH --mem=200GB
+#SBATCH --mem=100GB
 #SBATCH --partition==???
 
 module load python

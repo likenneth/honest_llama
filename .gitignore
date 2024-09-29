@@ -168,3 +168,9 @@ validation/splits
 validation/sweeping/logs
 get_activations/logs
 validation/debug_model_architecture.ipynb
+validation/pyvene_playground.ipynb
+validation/llama2_chat_70b_tuning.md
+validation/pv_validate_2fold.ipynb
+get_activations/pv_get_activations.ipynb
+pyvene_reference
+llama
