@@ -113,11 +113,13 @@ If successful, you can find your GPT-judge and GPT-info model names with the Pyt
 
 (3) To create a modified model with ITI use `python edit_weight.py --model_name llama2_chat_7B` in the `validation` folder. `push_hf.py` can be used to upload this model to Huging Face.
 
-**_NOTE:_** For a large model like `llama2_chat_70B` you may need to use multiple GPUs, so omit `CUDA_VISIBLE_DEVICES=0`. In addition, it may be beneficial to save the model locally first with `huggingface-cli download` and load with `--model_prefix "local_"` options, availible in `get_activations.py`, `edit_weight.py` and `validate_2fold.py`.
+**_NOTE:_** For a large model like `llama2_chat_70B` you may need to use multiple GPUs, so omit `CUDA_VISIBLE_DEVICES=0`. In addition, it may be beneficial to save the model locally first with `huggingface-cli download` and load with `--model_prefix "local_"` options, available in `get_activations.py`, `edit_weight.py` and `validate_2fold.py`.
+
+**_NOTE regarding pyvene:_** This repository was updated on 09/29/2024 to implement ITI using pyvene, a convenient wrapper for intervening on attention heads. The scripts ``validate_2fold.py``, ``utils.py``, and ``get_activations.py`` have been updated to use pyvene instead of the legacy intervention code, which relied on baukit's TraceDict for attention head intervention. While both pyvene and baukit achieve similar results, pyvene offers greater generalizability to other open-source models. If you wish to replicate the original *Inference-Time Intervention* paper, the legacy scripts may be more appropriate. These legacy scripts are provided in the ``legacy`` folder, allowing you to choose the approach that best fits your needs.
 
 ### Results
 
-See `iti_replication_results.md` for example result runs on LLaMA-1, LLaMA-2, and LLaMA-3 models.
+See `iti_replication_results.md` for example result runs on LLaMA-2 and LLaMA-3 models.
 
 ## Additional datasets
 
